@@ -1,5 +1,5 @@
 {
-  "name": "free-pishro-nextjs",
+  "name": "pishro-admin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,16 +10,23 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.11.1",
     "@babel/parser": "^7.28.5",
     "@babel/traverse": "^7.28.5",
+    "@tanstack/react-query": "^5.90.7",
+    "@tanstack/react-query-devtools": "^5.90.2",
     "apexcharts": "^3.45.2",
+    "axios": "^1.13.2",
+    "bcryptjs": "^3.0.3",
     "flatpickr": "^4.6.13",
     "glob": "^11.0.3",
     "jsvectormap": "^1.5.3",
     "next": "^14.1.4",
+    "next-auth": "^5.0.0-beta.30",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18",
+    "react-query": "^3.39.3",
     "react-quill": "^2.0.0",
     "react-select": "^5.8.0",
     "react-table": "^7.8.0",
