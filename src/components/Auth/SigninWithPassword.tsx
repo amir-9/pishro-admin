@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 
 /**
  * Sign-in form component
@@ -146,7 +146,6 @@ export default function SigninWithPassword() {
             onChange={(e) => setData({ ...data, remember: e.target.checked })}
             className="peer sr-only"
           />
-
           <span
             className={`mr-2.5 inline-flex h-5.5 w-5.5 items-center justify-center rounded-md border border-stroke bg-white text-white text-opacity-0 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-opacity-100 dark:border-stroke-dark dark:bg-white/5 ${
               data.remember ? "bg-primary" : ""
