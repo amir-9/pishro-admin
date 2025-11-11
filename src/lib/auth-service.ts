@@ -46,11 +46,11 @@ export async function login(phone: string, password: string): Promise<User> {
       password,
     });
 
-    if (response.data.status === "success") {
-      return response.data.data;
+    if (response.status === "success") {
+      return response.data;
     }
 
-    throw new Error(response.data.message || "خطا در ورود");
+    throw new Error(response.message || "خطا در ورود");
   } catch (error: any) {
     // مدیریت خطاهای axios
     if (error.response?.data?.message) {
@@ -66,8 +66,8 @@ export async function checkSession(): Promise<User | null> {
     const response =
       await api.get<ApiResponse<SessionResponse>>("/auth/session");
 
-    if (response.data.status === "success") {
-      return response.data.data.user;
+    if (response.status === "success") {
+      return response.data.user;
     }
 
     return null;
@@ -82,7 +82,7 @@ export async function logout(): Promise<boolean> {
   try {
     const response =
       await api.post<ApiResponse<{ loggedOut: boolean }>>("/auth/logout");
-    return response.data.status === "success";
+    return response.status === "success";
   } catch (error) {
     console.error("خطا در خروج:", error);
     return false;
