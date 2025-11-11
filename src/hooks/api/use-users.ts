@@ -76,11 +76,13 @@ export function useUpdateUser() {
   return useMutation({
     mutationFn: async ({ id, data }: { id: string; data: UpdateUserRequest }) => {
       const response = await api.patch<UserResponse>(`/admin/users/${id}`, data);
-      return response.data;
+      return response.data as unknown as UserResponse;
     },
-    onSuccess: (data) => {
+    onSuccess: (response: UserResponse) => {
       queryClient.invalidateQueries({ queryKey: userKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: userKeys.detail((data as UserWithRelations).id) });
+      if (response.data && 'id' in response.data) {
+        queryClient.invalidateQueries({ queryKey: userKeys.detail(response.data.id as string) });
+      }
     },
   });
 }

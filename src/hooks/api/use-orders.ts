@@ -58,11 +58,13 @@ export function useUpdateOrder() {
   return useMutation({
     mutationFn: async ({ id, data }: { id: string; data: UpdateOrderRequest }) => {
       const response = await api.patch<OrderResponse>(`/admin/orders/${id}`, data);
-      return response.data;
+      return response.data as unknown as OrderResponse;
     },
-    onSuccess: (data) => {
+    onSuccess: (response: OrderResponse) => {
       queryClient.invalidateQueries({ queryKey: orderKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: orderKeys.detail((data as OrderWithRelations).id) });
+      if (response.data && 'id' in response.data) {
+        queryClient.invalidateQueries({ queryKey: orderKeys.detail(response.data.id as string) });
+      }
     },
   });
 }

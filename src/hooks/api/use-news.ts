@@ -76,11 +76,13 @@ export function useUpdateNews() {
   return useMutation({
     mutationFn: async ({ id, data }: { id: string; data: UpdateNewsRequest }) => {
       const response = await api.patch<NewsResponse>(`/admin/news/${id}`, data);
-      return response.data;
+      return response.data as unknown as NewsResponse;
     },
-    onSuccess: (data) => {
+    onSuccess: (response: NewsResponse) => {
       queryClient.invalidateQueries({ queryKey: newsKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: newsKeys.detail((data as NewsArticleWithRelations).id) });
+      if (response.data && 'id' in response.data) {
+        queryClient.invalidateQueries({ queryKey: newsKeys.detail(response.data.id as string) });
+      }
     },
   });
 }

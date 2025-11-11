@@ -76,11 +76,13 @@ export function useUpdateCategory() {
   return useMutation({
     mutationFn: async ({ id, data }: { id: string; data: UpdateCategoryRequest }) => {
       const response = await api.patch<CategoryResponse>(`/admin/categories/${id}`, data);
-      return response.data;
+      return response.data as unknown as CategoryResponse;
     },
-    onSuccess: (data) => {
+    onSuccess: (response: CategoryResponse) => {
       queryClient.invalidateQueries({ queryKey: categoryKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: categoryKeys.detail((data as CategoryWithRelations).id) });
+      if (response.data && 'id' in response.data) {
+        queryClient.invalidateQueries({ queryKey: categoryKeys.detail(response.data.id as string) });
+      }
     },
   });
 }

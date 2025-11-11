@@ -76,11 +76,13 @@ export function useUpdateCourse() {
   return useMutation({
     mutationFn: async ({ id, data }: { id: string; data: UpdateCourseRequest }) => {
       const response = await api.patch<CourseResponse>(`/admin/courses/${id}`, data);
-      return response.data;
+      return response.data as unknown as CourseResponse;
     },
-    onSuccess: (data) => {
+    onSuccess: (response: CourseResponse) => {
       queryClient.invalidateQueries({ queryKey: courseKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: courseKeys.detail((data as CourseWithRelations).id) });
+      if (response.data && 'id' in response.data) {
+        queryClient.invalidateQueries({ queryKey: courseKeys.detail(response.data.id as string) });
+      }
     },
   });
 }
