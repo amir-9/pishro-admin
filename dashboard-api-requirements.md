@@ -1,25 +1,30 @@
 # Dashboard API Requirements
 
 ## خلاصه
+
 صفحه داشبورد یک صفحه اصلی است که آمار کلی سیستم آموزشی را نمایش می‌دهد. این صفحه شامل کارت‌های آماری، نمودارهای تحلیلی، و جداول اطلاعاتی است.
 
 ## کامپوننت‌های نمایشی فعلی
 
 ### 1. کارت‌های آماری (DataStats)
+
 - **کل بازدیدها**: تعداد کل بازدید سایت
 - **درآمد کل**: مجموع درآمد حاصل از فروش دوره‌ها
 - **کل سفارشات**: تعداد کل سفارشات ثبت شده
 - **کل کاربران**: تعداد کاربران ثبت نام شده
 
 ### 2. نمودار پرداخت‌ها (ChartOne)
+
 - نمودار خطی ماهانه (12 ماه)
 - مبلغ دریافتی و مبلغ معوق
 
 ### 3. نمودار سود هفتگی (ChartTwo)
+
 - نمودار میله‌ای هفتگی (7 روز)
 - فروش و درآمد روزانه
 
 ### 4. نمودار دستگاه‌های استفاده شده (ChartThree)
+
 - نمودار دونات
 - توزیع بازدیدکنندگان بر اساس نوع دستگاه (دسکتاپ، موبایل، تبلت)
 
@@ -30,29 +35,31 @@
 لطفاً API های زیر را برای صفحه داشبورد پیاده‌سازی کنید:
 
 ### 1. دریافت آمار کلی
+
 ```
-GET /api/dashboard/stats
+GET /api/admin/dashboard/stats
 ```
 
 **Response Type:**
+
 ```typescript
 {
   totalViews: {
-    value: number;        // مثال: 3456
-    growthRate: number;   // درصد رشد (مثبت یا منفی) - مثال: 0.43
-  };
+    value: number; // مثال: 3456
+    growthRate: number; // درصد رشد (مثبت یا منفی) - مثال: 0.43
+  }
   totalRevenue: {
-    value: number;        // مبلغ به تومان - مثال: 42200000
-    growthRate: number;   // درصد رشد
-  };
+    value: number; // مبلغ به تومان - مثال: 42200000
+    growthRate: number; // درصد رشد
+  }
   totalOrders: {
-    value: number;        // تعداد سفارشات - مثال: 2450
-    growthRate: number;   // درصد رشد
-  };
+    value: number; // تعداد سفارشات - مثال: 2450
+    growthRate: number; // درصد رشد
+  }
   totalUsers: {
-    value: number;        // تعداد کاربران - مثال: 3465
-    growthRate: number;   // درصد رشد
-  };
+    value: number; // تعداد کاربران - مثال: 3465
+    growthRate: number; // درصد رشد
+  }
 }
 ```
 
@@ -61,13 +68,15 @@ GET /api/dashboard/stats
 ---
 
 ### 2. دریافت آمار پرداخت‌های ماهانه
+
 ```
-GET /api/dashboard/payments/monthly
+GET /api/admin/dashboard/payments/monthly
 Query Parameters:
   - period: 'monthly' | 'yearly' (optional, default: 'monthly')
 ```
 
 **Response Type:**
+
 ```typescript
 {
   months: string[];           // نام ماه‌ها - مثال: ["فروردین", "اردیبهشت", ...]
@@ -81,13 +90,15 @@ Query Parameters:
 ---
 
 ### 3. دریافت آمار سود هفتگی
+
 ```
-GET /api/dashboard/profit/weekly
+GET /api/admin/dashboard/profit/weekly
 Query Parameters:
   - period: 'this_week' | 'last_week' (optional, default: 'this_week')
 ```
 
 **Response Type:**
+
 ```typescript
 {
   days: string[];         // نام روزها - مثال: ["شنبه", "یکشنبه", ...]
@@ -99,19 +110,21 @@ Query Parameters:
 ---
 
 ### 4. دریافت آمار دستگاه‌های بازدیدکنندگان
+
 ```
-GET /api/dashboard/devices
+GET /api/admin/dashboard/devices
 Query Parameters:
   - period: 'monthly' | 'yearly' (optional, default: 'monthly')
 ```
 
 **Response Type:**
+
 ```typescript
 {
-  desktop: number;    // درصد دسکتاپ - مثال: 65
-  tablet: number;     // درصد تبلت - مثال: 34
-  mobile: number;     // درصد موبایل - مثال: 45
-  unknown: number;    // درصد نامشخص - مثال: 12
+  desktop: number; // درصد دسکتاپ - مثال: 65
+  tablet: number; // درصد تبلت - مثال: 34
+  mobile: number; // درصد موبایل - مثال: 45
+  unknown: number; // درصد نامشخص - مثال: 12
   totalVisitors: number; // تعداد کل بازدیدکنندگان
 }
 ```
@@ -186,17 +199,17 @@ interface DevicesData {
 ```bash
 # دریافت آمار کلی
 curl -H "Authorization: Bearer YOUR_TOKEN" \
-  http://localhost:3000/api/dashboard/stats
+  http://localhost:3000/api/admin/dashboard/stats
 
 # دریافت آمار پرداخت‌ها
 curl -H "Authorization: Bearer YOUR_TOKEN" \
-  http://localhost:3000/api/dashboard/payments/monthly?period=monthly
+  http://localhost:3000/api/admin/dashboard/payments/monthly?period=monthly
 
 # دریافت آمار سود
 curl -H "Authorization: Bearer YOUR_TOKEN" \
-  http://localhost:3000/api/dashboard/profit/weekly?period=this_week
+  http://localhost:3000/api/admin/dashboard/profit/weekly?period=this_week
 
 # دریافت آمار دستگاه‌ها
 curl -H "Authorization: Bearer YOUR_TOKEN" \
-  http://localhost:3000/api/dashboard/devices?period=monthly
+  http://localhost:3000/api/admin/dashboard/devices?period=monthly
 ```
