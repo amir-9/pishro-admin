@@ -63,10 +63,8 @@ const UserForm: React.FC<UserFormProps> = ({ userId, isEdit = false }) => {
     try {
       if (isEdit && userId) {
         // For edit, don't send password if it's empty
-        const updateData = { ...formData };
-        if (!updateData.password) {
-          delete updateData.password;
-        }
+        const { password, ...restData } = formData;
+        const updateData = password ? formData : restData;
         await updateUser.mutateAsync({ id: userId, data: updateData });
         alert("کاربر با موفقیت به‌روزرسانی شد");
       } else {
