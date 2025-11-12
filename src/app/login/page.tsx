@@ -16,7 +16,7 @@ export default function LoginPage() {
   // اگر کاربر قبلاً login کرده، به dashboard هدایت کن
   useEffect(() => {
     if (!isLoading && user) {
-      router.push("/dashboard");
+      router.push("/");
     }
   }, [user, router, isLoading]);
 
