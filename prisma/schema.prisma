@@ -63,9 +63,9 @@ model Course {
   time            String?
   students        Int?
   videosCount     Int?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime @default(now()) 
-  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+
   category   Category? @relation("CategoryCourses", fields: [categoryId], references: [id], onDelete: SetNull)
   categoryId String?   @db.ObjectId
 
@@ -220,6 +220,11 @@ model NewsArticle {
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
   comments  NewsComment[] @relation("NewsArticleComments")
+
+  // Relation with AboutPage
+  aboutPageId String?     @db.ObjectId
+  aboutPage   AboutPage?  @relation("AboutNews", fields: [aboutPageId], references: [id])
+
 
   @@index([categoryId])
   @@index([published, featured])
@@ -579,6 +584,12 @@ enum QuestionType {
 model HomeLanding {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
+  // Main Hero (متن اصلی روی ویدیو)
+  mainHeroTitle    String?
+  mainHeroSubtitle String?
+  mainHeroCta1Text String?
+  mainHeroCta1Link String?
+
   // Hero Section
   heroTitle       String
   heroSubtitle    String?
@@ -598,7 +609,7 @@ model HomeLanding {
   whyUsTitle       String?
   whyUsDescription String?
   // مثال: [{"label": "آموزش حرفه‌ای", "title": "...", "text": "...", "btnLabel": "...", "btnHref": "...", "imagePath": "..."}]
-  whyUsItems Json @default("[]")
+  whyUsItems       Json    @default("[]")
 
   // Newsletter/News Club Section
   newsClubTitle       String?
@@ -654,10 +665,9 @@ model AboutPage {
   heroStats Json @default("[]")
 
   // Resume Section
-  resumeTitle       String?
-  resumeSubtitle    String?
-  // Resume Items (تاریخچه، ماموریت، چشم‌انداز، ارزش‌ها)
-  resumeItems       ResumeItem[] @relation("AboutResumeItems")
+  resumeTitle    String?
+  resumeSubtitle String?
+  resumeItems    ResumeItem[] @relation("AboutResumeItems")
 
   // Team Section
   teamTitle    String?
@@ -669,9 +679,10 @@ model AboutPage {
   certificatesSubtitle String?
   certificates         Certificate[] @relation("AboutCertificates")
 
-  // News Section (using existing News model)
+  // News Section (replace journals)
   newsTitle    String?
   newsSubtitle String?
+  news         NewsArticle[] @relation("AboutNews")
 
   // CTA Section
   ctaTitle       String?
@@ -679,7 +690,7 @@ model AboutPage {
   ctaButtonText  String?
   ctaButtonLink  String?
 
-  // Meta tags
+  // Meta
   metaTitle       String?
   metaDescription String?
   metaKeywords    String[] @default([])
@@ -692,9 +703,9 @@ model AboutPage {
 
 // مدل برای آیتم‌های Resume (تاریخچه، ماموریت، چشم‌انداز، ارزش‌ها)
 model ResumeItem {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  aboutPage AboutPage @relation("AboutResumeItems", fields: [aboutPageId], references: [id], onDelete: Cascade)
-  aboutPageId String  @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  aboutPage   AboutPage @relation("AboutResumeItems", fields: [aboutPageId], references: [id], onDelete: Cascade)
+  aboutPageId String    @db.ObjectId
 
   icon        String? // نام آیکون (مثل "LuClock", "LuTarget", ...)
   title       String
@@ -768,10 +779,10 @@ model InvestmentConsulting {
   image       String?
 
   // Contact Information
-  phoneNumber   String?
-  telegramId    String?
-  telegramLink  String?
-  coursesLink   String?
+  phoneNumber  String?
+  telegramId   String?
+  telegramLink String?
+  coursesLink  String?
 
   // Drawer Content
   inPersonTitle       String?
@@ -807,9 +818,13 @@ model InvestmentPlans {
   // Investment Tags
   tags InvestmentTag[] @relation("InvestmentPlansTags")
 
+  // Intro Cards (کارت‌های معرفی - مثل aboutItCardsData)
+  // مثال: [{"title": "مدیریت سرمایه", "description": "تقسیم سرمایه، ریسک به ریوارد..."}]
+  plansIntroCards Json @default("[]")
+
   // Settings for sliders
-  minAmount Int @default(10)
-  maxAmount Int @default(10000)
+  minAmount  Int @default(10)
+  maxAmount  Int @default(10000)
   amountStep Int @default(10)
 
   // Meta tags
@@ -825,9 +840,9 @@ model InvestmentPlans {
 
 // مدل برای انواع سبدهای سرمایه‌گذاری (ارز دیجیتال، بورس، ترکیبی)
 model InvestmentPlan {
-  id              String           @id @default(auto()) @map("_id") @db.ObjectId
-  investmentPlans InvestmentPlans  @relation("InvestmentPlansPlans", fields: [investmentPlansId], references: [id], onDelete: Cascade)
-  investmentPlansId String         @db.ObjectId
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  investmentPlans   InvestmentPlans @relation("InvestmentPlansPlans", fields: [investmentPlansId], references: [id], onDelete: Cascade)
+  investmentPlansId String          @db.ObjectId
 
   label       String // مثل "ارز دیجیتال"، "بورس"، "ترکیبی"
   icon        String? // نام آیکون (مثل "Bitcoin", "LineChart", "PieChart")
@@ -844,9 +859,9 @@ model InvestmentPlan {
 
 // مدل برای تگ‌های سرمایه‌گذاری
 model InvestmentTag {
-  id              String           @id @default(auto()) @map("_id") @db.ObjectId
-  investmentPlans InvestmentPlans  @relation("InvestmentPlansTags", fields: [investmentPlansId], references: [id], onDelete: Cascade)
-  investmentPlansId String         @db.ObjectId
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  investmentPlans   InvestmentPlans @relation("InvestmentPlansTags", fields: [investmentPlansId], references: [id], onDelete: Cascade)
+  investmentPlansId String          @db.ObjectId
 
   title String
   color String? // رنگ تگ
