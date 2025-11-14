@@ -34,6 +34,9 @@ const MobileScrollerStepForm: React.FC<MobileScrollerStepFormProps> = ({
     published: true,
   });
 
+  // UI states for managing JSON arrays
+  const [cardsUI, setCardsUI] = useState<any[]>([]);
+
   useEffect(() => {
     if (isEdit && stepData) {
       const data = stepData;
@@ -47,6 +50,9 @@ const MobileScrollerStepForm: React.FC<MobileScrollerStepFormProps> = ({
         order: data.order,
         published: data.published,
       });
+
+      // Set UI states
+      setCardsUI(Array.isArray(data.cards) ? data.cards : []);
     }
   }, [isEdit, stepData]);
 
@@ -54,12 +60,17 @@ const MobileScrollerStepForm: React.FC<MobileScrollerStepFormProps> = ({
     e.preventDefault();
 
     try {
+      const submitData = {
+        ...formData,
+        cards: cardsUI,
+      };
+
       if (isEdit && stepId) {
-        await updateStep.mutateAsync({ id: stepId, data: formData });
+        await updateStep.mutateAsync({ id: stepId, data: submitData });
         alert("مرحله با موفقیت به‌روزرسانی شد");
         router.refresh();
       } else {
-        await createStep.mutateAsync(formData);
+        await createStep.mutateAsync(submitData);
         alert("مرحله با موفقیت ایجاد شد");
         router.refresh();
       }
@@ -85,6 +96,24 @@ const MobileScrollerStepForm: React.FC<MobileScrollerStepFormProps> = ({
             ? value === "" ? 0 : Number(value)
             : value === "" ? null : value,
     }));
+  };
+
+  // Cards Management
+  const addCard = () => {
+    setCardsUI([
+      ...cardsUI,
+      { title: "", desc: "", icon: "", top: "25%", right: "-10%" },
+    ]);
+  };
+
+  const updateCard = (index: number, field: string, value: any) => {
+    const updated = [...cardsUI];
+    updated[index] = { ...updated[index], [field]: value };
+    setCardsUI(updated);
+  };
+
+  const removeCard = (index: number) => {
+    setCardsUI(cardsUI.filter((_, i) => i !== index));
   };
 
   return (
@@ -179,6 +208,120 @@ const MobileScrollerStepForm: React.FC<MobileScrollerStepFormProps> = ({
             placeholder="مثال: from-blue-500 to-purple-500"
             className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
           />
+        </div>
+
+        {/* Cards Section */}
+        <div className="mb-5.5">
+          <h5 className="mb-3 text-body-sm font-semibold text-dark dark:text-white">
+            کارت‌های داخل Step
+          </h5>
+
+          <div className="space-y-4">
+            {cardsUI.map((card, index) => (
+              <div
+                key={index}
+                className="rounded-[7px] border border-stroke p-4 dark:border-dark-3"
+              >
+                <div className="mb-3 flex justify-between">
+                  <h6 className="font-medium text-dark dark:text-white">
+                    کارت {index + 1}
+                  </h6>
+                  <button
+                    type="button"
+                    onClick={() => removeCard(index)}
+                    className="text-sm text-red hover:underline"
+                  >
+                    حذف
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-body-sm font-medium text-dark dark:text-white">
+                      عنوان
+                    </label>
+                    <input
+                      type="text"
+                      value={card.title || ""}
+                      onChange={(e) =>
+                        updateCard(index, "title", e.target.value)
+                      }
+                      className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-body-sm font-medium text-dark dark:text-white">
+                      توضیحات
+                    </label>
+                    <input
+                      type="text"
+                      value={card.desc || ""}
+                      onChange={(e) =>
+                        updateCard(index, "desc", e.target.value)
+                      }
+                      className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <div>
+                    <label className="mb-2 block text-body-sm font-medium text-dark dark:text-white">
+                      آیکون
+                    </label>
+                    <input
+                      type="text"
+                      value={card.icon || ""}
+                      onChange={(e) =>
+                        updateCard(index, "icon", e.target.value)
+                      }
+                      placeholder="LineChart"
+                      className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-body-sm font-medium text-dark dark:text-white">
+                      موقعیت Top
+                    </label>
+                    <input
+                      type="text"
+                      value={card.top || ""}
+                      onChange={(e) =>
+                        updateCard(index, "top", e.target.value)
+                      }
+                      placeholder="25%"
+                      className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-body-sm font-medium text-dark dark:text-white">
+                      موقعیت Right
+                    </label>
+                    <input
+                      type="text"
+                      value={card.right || ""}
+                      onChange={(e) =>
+                        updateCard(index, "right", e.target.value)
+                      }
+                      placeholder="-10%"
+                      className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={addCard}
+              className="rounded bg-primary px-6 py-2.5 font-medium text-white hover:bg-opacity-90"
+            >
+              افزودن کارت جدید
+            </button>
+          </div>
         </div>
 
         <div className="mb-5.5 flex gap-5">

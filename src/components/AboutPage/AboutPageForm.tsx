@@ -48,6 +48,10 @@ const AboutPageForm: React.FC<AboutPageFormProps> = ({
     order: 0,
   });
 
+  // UI states for managing JSON arrays
+  const [heroStatsUI, setHeroStatsUI] = useState<any[]>([]);
+  const [metaKeywordsInput, setMetaKeywordsInput] = useState<string>("");
+
   useEffect(() => {
     if (isEdit && aboutPageData) {
       const data = aboutPageData;
@@ -75,6 +79,10 @@ const AboutPageForm: React.FC<AboutPageFormProps> = ({
         published: data.published,
         order: data.order,
       });
+
+      // Set UI states
+      setHeroStatsUI(Array.isArray(data.heroStats) ? data.heroStats : []);
+      setMetaKeywordsInput((data.metaKeywords || []).join(", "));
     }
   }, [isEdit, aboutPageData]);
 
@@ -82,12 +90,21 @@ const AboutPageForm: React.FC<AboutPageFormProps> = ({
     e.preventDefault();
 
     try {
+      const submitData = {
+        ...formData,
+        heroStats: heroStatsUI,
+        metaKeywords: metaKeywordsInput
+          .split(",")
+          .map((k) => k.trim())
+          .filter((k) => k),
+      };
+
       if (isEdit && aboutPageId) {
-        await updateAboutPage.mutateAsync({ id: aboutPageId, data: formData });
+        await updateAboutPage.mutateAsync({ id: aboutPageId, data: submitData });
         alert("صفحه درباره ما با موفقیت به‌روزرسانی شد");
         router.refresh();
       } else {
-        await createAboutPage.mutateAsync(formData);
+        await createAboutPage.mutateAsync(submitData);
         alert("صفحه درباره ما با موفقیت ایجاد شد");
         router.refresh();
       }
@@ -113,6 +130,21 @@ const AboutPageForm: React.FC<AboutPageFormProps> = ({
             ? value === "" ? null : Number(value)
             : value === "" ? null : value,
     }));
+  };
+
+  // Hero Stats Management
+  const addHeroStat = () => {
+    setHeroStatsUI([...heroStatsUI, { label: "", value: 0, icon: "LuUsers" }]);
+  };
+
+  const updateHeroStat = (index: number, field: string, value: any) => {
+    const updated = [...heroStatsUI];
+    updated[index] = { ...updated[index], [field]: value };
+    setHeroStatsUI(updated);
+  };
+
+  const removeHeroStat = (index: number) => {
+    setHeroStatsUI(heroStatsUI.filter((_, i) => i !== index));
   };
 
   return (
@@ -181,6 +213,75 @@ const AboutPageForm: React.FC<AboutPageFormProps> = ({
               onChange={handleChange}
               className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
             />
+          </div>
+
+          {/* Hero Stats */}
+          <div className="mb-5.5">
+            <h5 className="mb-3 text-body-sm font-semibold text-dark dark:text-white">آمار هیرو (Hero Stats)</h5>
+
+            <div className="space-y-4">
+              {heroStatsUI.map((stat, index) => (
+                <div key={index} className="rounded-[7px] border border-stroke p-4 dark:border-dark-3">
+                  <div className="mb-3 flex justify-between">
+                    <h6 className="font-medium text-dark dark:text-white">آمار {index + 1}</h6>
+                    <button
+                      type="button"
+                      onClick={() => removeHeroStat(index)}
+                      className="text-sm text-red hover:underline"
+                    >
+                      حذف
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    <div>
+                      <label className="mb-2 block text-body-sm font-medium text-dark dark:text-white">
+                        برچسب
+                      </label>
+                      <input
+                        type="text"
+                        value={stat.label || ""}
+                        onChange={(e) => updateHeroStat(index, "label", e.target.value)}
+                        className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-2 block text-body-sm font-medium text-dark dark:text-white">
+                        مقدار
+                      </label>
+                      <input
+                        type="number"
+                        value={stat.value || 0}
+                        onChange={(e) => updateHeroStat(index, "value", Number(e.target.value))}
+                        className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-2 block text-body-sm font-medium text-dark dark:text-white">
+                        نام آیکون
+                      </label>
+                      <input
+                        type="text"
+                        value={stat.icon || ""}
+                        onChange={(e) => updateHeroStat(index, "icon", e.target.value)}
+                        placeholder="مثال: LuUsers"
+                        className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              <button
+                type="button"
+                onClick={addHeroStat}
+                className="rounded bg-primary px-6 py-2.5 font-medium text-white hover:bg-opacity-90"
+              >
+                افزودن آمار جدید
+              </button>
+            </div>
           </div>
         </div>
 
@@ -405,6 +506,19 @@ const AboutPageForm: React.FC<AboutPageFormProps> = ({
               value={formData.metaDescription || ""}
               onChange={handleChange}
               rows={3}
+              className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+            />
+          </div>
+
+          <div className="mb-5.5">
+            <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
+              کلمات کلیدی (با کاما جدا کنید)
+            </label>
+            <input
+              type="text"
+              value={metaKeywordsInput}
+              onChange={(e) => setMetaKeywordsInput(e.target.value)}
+              placeholder="مثال: درباره ما, تیم, گواهینامه"
               className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
             />
           </div>
