@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import InvestmentConsultingForm from "@/components/InvestmentConsulting/InvestmentConsultingForm";
-import { useInvestmentConsultings } from "@/hooks/api";
+import { useInvestmentConsulting } from "@/hooks/api";
 
 const InvestmentConsultingPage = () => {
   const router = useRouter();
-  const { data, isLoading, error } = useInvestmentConsultings({ page: 1, limit: 1 });
+  const { data, isLoading, error } = useInvestmentConsulting({ page: 1, limit: 1 });
   const [consultingId, setConsultingId] = useState<string | undefined>(undefined);
   const [isEdit, setIsEdit] = useState(false);
 

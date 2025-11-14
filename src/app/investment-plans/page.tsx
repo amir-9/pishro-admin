@@ -10,12 +10,12 @@ import { useInvestmentPlans } from "@/hooks/api";
 const InvestmentPlansPage = () => {
   const router = useRouter();
   const { data, isLoading, error } = useInvestmentPlans({ page: 1, limit: 1 });
-  const [planId, setPlanId] = useState<string | undefined>(undefined);
+  const [plansId, setPlansId] = useState<string | undefined>(undefined);
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     if (data?.items && data.items.length > 0) {
-      setPlanId(data.items[0].id);
+      setPlansId(data.items[0].id);
       setIsEdit(true);
     } else if (data?.items && data.items.length === 0) {
       setIsEdit(false);
@@ -48,7 +48,7 @@ const InvestmentPlansPage = () => {
     <DefaultLayout>
       <Breadcrumb pageName="سبدهای سرمایه‌گذاری" />
       <div className="flex flex-col gap-10">
-        <InvestmentPlansForm planId={planId} isEdit={isEdit} />
+        <InvestmentPlansForm plansId={plansId} isEdit={isEdit} />
       </div>
     </DefaultLayout>
   );
