@@ -5,32 +5,32 @@
  */
 
 // Users
-export * from './use-users';
+export * from "./use-users";
 
 // Courses
-export * from './use-courses';
+export * from "./use-courses";
 
 // Comments
-export * from './use-comments';
+export * from "./use-comments";
 
 // News
-export * from './use-news';
+export * from "./use-news";
 
 // Categories
-export * from './use-categories';
+export * from "./use-categories";
 
 // Orders
-export * from './use-orders';
+export * from "./use-orders";
 
 // Enrollments
-export * from './use-enrollments';
+export * from "./use-enrollments";
 
 // CMS Landing Pages
-export * from './use-home-landing';
-export * from './use-mobile-scroller-steps';
-export * from './use-about-page';
-export * from './use-investment-consulting';
-export * from './use-investment-plans';
+export * from "./use-home-landing";
+export * from "./use-mobile-scroller-steps";
+export * from "./use-about-page";
+export * from "./use-business-consulting";
+export * from "./use-investment-plans";
 
 // Add more exports as you create additional hook files
 // export * from './use-books';

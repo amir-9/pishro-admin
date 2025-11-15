@@ -3,18 +3,18 @@
 import { useParams } from "next/navigation";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
-import InvestmentConsultingForm from "@/components/InvestmentConsulting/InvestmentConsultingForm";
+import BusinessConsultingForm from "@/components/BusinessConsulting/BusinessConsultingForm";
 
-const EditInvestmentConsultingPage = () => {
+const EditBusinessConsultingPage = () => {
   const params = useParams();
   const id = params.id as string;
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName="ویرایش مشاوره سرمایه‌گذاری" />
-      <InvestmentConsultingForm consultingId={id} isEdit={true} />
+      <BusinessConsultingForm consultingId={id} isEdit={true} />
     </DefaultLayout>
   );
 };
 
-export default EditInvestmentConsultingPage;
+export default EditBusinessConsultingPage;

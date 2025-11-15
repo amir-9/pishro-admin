@@ -4,13 +4,18 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
-import InvestmentConsultingForm from "@/components/InvestmentConsulting/InvestmentConsultingForm";
-import { useInvestmentConsulting } from "@/hooks/api";
+import BusinessConsultingForm from "@/components/BusinessConsulting/BusinessConsultingForm";
+import { useBusinessConsulting } from "@/hooks/api";
 
-const InvestmentConsultingPage = () => {
+const BusinessConsultingPage = () => {
   const router = useRouter();
-  const { data, isLoading, error } = useInvestmentConsulting({ page: 1, limit: 1 });
-  const [consultingId, setConsultingId] = useState<string | undefined>(undefined);
+  const { data, isLoading, error } = useBusinessConsulting({
+    page: 1,
+    limit: 1,
+  });
+  const [consultingId, setConsultingId] = useState<string | undefined>(
+    undefined,
+  );
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
@@ -48,10 +53,10 @@ const InvestmentConsultingPage = () => {
     <DefaultLayout>
       <Breadcrumb pageName="مشاوره سرمایه‌گذاری" />
       <div className="flex flex-col gap-10">
-        <InvestmentConsultingForm consultingId={consultingId} isEdit={isEdit} />
+        <BusinessConsultingForm consultingId={consultingId} isEdit={isEdit} />
       </div>
     </DefaultLayout>
   );
 };
 
-export default InvestmentConsultingPage;
+export default BusinessConsultingPage;

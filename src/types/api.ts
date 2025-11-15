@@ -40,13 +40,13 @@ import type {
   ResumeItem,
   TeamMember,
   Certificate,
-  InvestmentConsulting,
+  BusinessConsulting,
   InvestmentPlans,
   InvestmentPlan,
   InvestmentTag,
-} from '@prisma/client';
+} from "@prisma/client";
 
-import type { ApiSuccessResponse, PaginatedData } from '@/lib/api-response';
+import type { ApiSuccessResponse, PaginatedData } from "@/lib/api-response";
 
 // Re-export Prisma types
 export type {
@@ -85,7 +85,7 @@ export type {
   ResumeItem,
   TeamMember,
   Certificate,
-  InvestmentConsulting,
+  BusinessConsulting,
   InvestmentPlans,
   InvestmentPlan,
   InvestmentTag,
@@ -95,7 +95,7 @@ export type {
  * Extended types with relations
  */
 
-export interface UserWithRelations extends Omit<User, 'passwordHash'> {
+export interface UserWithRelations extends Omit<User, "passwordHash"> {
   _count?: {
     comments: number;
     orders: number;
@@ -118,7 +118,7 @@ export interface CourseWithRelations extends Course {
 }
 
 export interface CommentWithRelations extends Comment {
-  user?: Omit<User, 'passwordHash'> | null;
+  user?: Omit<User, "passwordHash"> | null;
   course?: Course | null;
   category?: Category | null;
 }
@@ -165,24 +165,24 @@ export interface QuizWithRelations extends Quiz {
 }
 
 export interface OrderWithRelations extends Order {
-  user?: Omit<User, 'passwordHash'> | null;
+  user?: Omit<User, "passwordHash"> | null;
   orderItems?: OrderItem[];
   transactions?: Transaction[];
 }
 
 export interface TransactionWithRelations extends Transaction {
-  user: Omit<User, 'passwordHash'>;
+  user: Omit<User, "passwordHash">;
   order?: OrderWithRelations | null;
 }
 
 export interface EnrollmentWithRelations extends Enrollment {
-  user: Omit<User, 'passwordHash'>;
+  user: Omit<User, "passwordHash">;
   course: Course;
 }
 
 export interface QuizAttemptWithRelations extends QuizAttempt {
   quiz: Quiz;
-  user: Omit<User, 'passwordHash'>;
+  user: Omit<User, "passwordHash">;
 }
 
 /**
@@ -190,24 +190,47 @@ export interface QuizAttemptWithRelations extends QuizAttempt {
  */
 
 // Users
-export type UsersListResponse = ApiSuccessResponse<PaginatedData<UserWithRelations>>;
+export type UsersListResponse = ApiSuccessResponse<
+  PaginatedData<UserWithRelations>
+>;
 export type UserResponse = ApiSuccessResponse<UserWithRelations>;
-export type CreateUserRequest = Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'passwordHash'> & { password: string };
+export type CreateUserRequest = Omit<
+  User,
+  "id" | "createdAt" | "updatedAt" | "passwordHash"
+> & { password: string };
 export type UpdateUserRequest = Partial<CreateUserRequest>;
 
 // Courses
-export type CoursesListResponse = ApiSuccessResponse<PaginatedData<CourseWithRelations>>;
+export type CoursesListResponse = ApiSuccessResponse<
+  PaginatedData<CourseWithRelations>
+>;
 export type CourseResponse = ApiSuccessResponse<CourseWithRelations>;
-export type CreateCourseRequest = Omit<Course, 'id' | 'createdAt' | 'updatedAt' | 'categoryId' | 'tagIds'> & {
+export type CreateCourseRequest = Omit<
+  Course,
+  "id" | "createdAt" | "updatedAt" | "categoryId" | "tagIds"
+> & {
   categoryId?: string;
   tagIds?: string[];
 };
 export type UpdateCourseRequest = Partial<CreateCourseRequest>;
 
 // Comments
-export type CommentsListResponse = ApiSuccessResponse<PaginatedData<CommentWithRelations>>;
+export type CommentsListResponse = ApiSuccessResponse<
+  PaginatedData<CommentWithRelations>
+>;
 export type CommentResponse = ApiSuccessResponse<CommentWithRelations>;
-export type CreateCommentRequest = Omit<Comment, 'id' | 'createdAt' | 'updatedAt' | 'userId' | 'courseId' | 'categoryId' | 'likes' | 'dislikes' | 'views'> & {
+export type CreateCommentRequest = Omit<
+  Comment,
+  | "id"
+  | "createdAt"
+  | "updatedAt"
+  | "userId"
+  | "courseId"
+  | "categoryId"
+  | "likes"
+  | "dislikes"
+  | "views"
+> & {
   userId?: string;
   courseId?: string;
   categoryId?: string;
@@ -215,18 +238,35 @@ export type CreateCommentRequest = Omit<Comment, 'id' | 'createdAt' | 'updatedAt
 export type UpdateCommentRequest = Partial<CreateCommentRequest>;
 
 // News Articles
-export type NewsListResponse = ApiSuccessResponse<PaginatedData<NewsArticleWithRelations>>;
+export type NewsListResponse = ApiSuccessResponse<
+  PaginatedData<NewsArticleWithRelations>
+>;
 export type NewsResponse = ApiSuccessResponse<NewsArticleWithRelations>;
-export type CreateNewsRequest = Omit<NewsArticle, 'id' | 'createdAt' | 'updatedAt' | 'categoryId' | 'tagIds' | 'views' | 'likes'> & {
+export type CreateNewsRequest = Omit<
+  NewsArticle,
+  "id" | "createdAt" | "updatedAt" | "categoryId" | "tagIds" | "views" | "likes"
+> & {
   categoryId?: string;
   tagIds?: string[];
 };
 export type UpdateNewsRequest = Partial<CreateNewsRequest>;
 
 // Digital Books
-export type BooksListResponse = ApiSuccessResponse<PaginatedData<DigitalBookWithRelations>>;
+export type BooksListResponse = ApiSuccessResponse<
+  PaginatedData<DigitalBookWithRelations>
+>;
 export type BookResponse = ApiSuccessResponse<DigitalBookWithRelations>;
-export type CreateBookRequest = Omit<DigitalBook, 'id' | 'createdAt' | 'updatedAt' | 'tagIds' | 'rating' | 'votes' | 'views' | 'downloads'> & {
+export type CreateBookRequest = Omit<
+  DigitalBook,
+  | "id"
+  | "createdAt"
+  | "updatedAt"
+  | "tagIds"
+  | "rating"
+  | "votes"
+  | "views"
+  | "downloads"
+> & {
   tagIds?: string[];
 };
 export type UpdateBookRequest = Partial<CreateBookRequest>;
@@ -238,73 +278,122 @@ export interface StatsBox {
   icon: string;
 }
 
-export type CategoriesListResponse = ApiSuccessResponse<PaginatedData<CategoryWithRelations>>;
+export type CategoriesListResponse = ApiSuccessResponse<
+  PaginatedData<CategoryWithRelations>
+>;
 export type CategoryResponse = ApiSuccessResponse<CategoryWithRelations>;
-export type CreateCategoryRequest = Omit<Category, 'id' | 'createdAt' | 'updatedAt' | 'tagIds' | 'statsBoxes'> & {
+export type CreateCategoryRequest = Omit<
+  Category,
+  "id" | "createdAt" | "updatedAt" | "tagIds" | "statsBoxes"
+> & {
   tagIds?: string[];
   statsBoxes: StatsBox[];
 };
 export type UpdateCategoryRequest = Partial<CreateCategoryRequest>;
 
 // Tags
-export type TagsListResponse = ApiSuccessResponse<PaginatedData<TagWithRelations>>;
+export type TagsListResponse = ApiSuccessResponse<
+  PaginatedData<TagWithRelations>
+>;
 export type TagResponse = ApiSuccessResponse<TagWithRelations>;
-export type CreateTagRequest = Omit<Tag, 'id' | 'createdAt' | 'updatedAt' | 'categoryIds' | 'courseIds' | 'newsIds' | 'bookIds' | 'usageCount' | 'clicks'>;
+export type CreateTagRequest = Omit<
+  Tag,
+  | "id"
+  | "createdAt"
+  | "updatedAt"
+  | "categoryIds"
+  | "courseIds"
+  | "newsIds"
+  | "bookIds"
+  | "usageCount"
+  | "clicks"
+>;
 export type UpdateTagRequest = Partial<CreateTagRequest>;
 
 // FAQs
 export type FAQsListResponse = ApiSuccessResponse<PaginatedData<FAQ>>;
 export type FAQResponse = ApiSuccessResponse<FAQ>;
-export type CreateFAQRequest = Omit<FAQ, 'id' | 'createdAt' | 'updatedAt' | 'views' | 'helpful' | 'notHelpful'>;
+export type CreateFAQRequest = Omit<
+  FAQ,
+  "id" | "createdAt" | "updatedAt" | "views" | "helpful" | "notHelpful"
+>;
 export type UpdateFAQRequest = Partial<CreateFAQRequest>;
 
 // Page Content
-export type PageContentsListResponse = ApiSuccessResponse<PaginatedData<PageContent>>;
+export type PageContentsListResponse = ApiSuccessResponse<
+  PaginatedData<PageContent>
+>;
 export type PageContentResponse = ApiSuccessResponse<PageContent>;
-export type CreatePageContentRequest = Omit<PageContent, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreatePageContentRequest = Omit<
+  PageContent,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdatePageContentRequest = Partial<CreatePageContentRequest>;
 
 // Quizzes
-export type QuizzesListResponse = ApiSuccessResponse<PaginatedData<QuizWithRelations>>;
+export type QuizzesListResponse = ApiSuccessResponse<
+  PaginatedData<QuizWithRelations>
+>;
 export type QuizResponse = ApiSuccessResponse<QuizWithRelations>;
-export type CreateQuizRequest = Omit<Quiz, 'id' | 'createdAt' | 'updatedAt' | 'courseId' | 'categoryId'> & {
+export type CreateQuizRequest = Omit<
+  Quiz,
+  "id" | "createdAt" | "updatedAt" | "courseId" | "categoryId"
+> & {
   courseId?: string;
   categoryId?: string;
 };
 export type UpdateQuizRequest = Partial<CreateQuizRequest>;
 
 // Quiz Questions
-export type QuizQuestionsListResponse = ApiSuccessResponse<PaginatedData<QuizQuestion>>;
+export type QuizQuestionsListResponse = ApiSuccessResponse<
+  PaginatedData<QuizQuestion>
+>;
 export type QuizQuestionResponse = ApiSuccessResponse<QuizQuestion>;
-export type CreateQuizQuestionRequest = Omit<QuizQuestion, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateQuizQuestionRequest = Omit<
+  QuizQuestion,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdateQuizQuestionRequest = Partial<CreateQuizQuestionRequest>;
 
 // Quiz Attempts
-export type QuizAttemptsListResponse = ApiSuccessResponse<PaginatedData<QuizAttemptWithRelations>>;
+export type QuizAttemptsListResponse = ApiSuccessResponse<
+  PaginatedData<QuizAttemptWithRelations>
+>;
 export type QuizAttemptResponse = ApiSuccessResponse<QuizAttemptWithRelations>;
 
 // Orders
-export type OrdersListResponse = ApiSuccessResponse<PaginatedData<OrderWithRelations>>;
+export type OrdersListResponse = ApiSuccessResponse<
+  PaginatedData<OrderWithRelations>
+>;
 export type OrderResponse = ApiSuccessResponse<OrderWithRelations>;
-export type UpdateOrderRequest = Partial<Pick<Order, 'status' | 'paymentRef'>>;
+export type UpdateOrderRequest = Partial<Pick<Order, "status" | "paymentRef">>;
 
 // Transactions
-export type TransactionsListResponse = ApiSuccessResponse<PaginatedData<TransactionWithRelations>>;
+export type TransactionsListResponse = ApiSuccessResponse<
+  PaginatedData<TransactionWithRelations>
+>;
 export type TransactionResponse = ApiSuccessResponse<TransactionWithRelations>;
 
 // Enrollments
-export type EnrollmentsListResponse = ApiSuccessResponse<PaginatedData<EnrollmentWithRelations>>;
+export type EnrollmentsListResponse = ApiSuccessResponse<
+  PaginatedData<EnrollmentWithRelations>
+>;
 export type EnrollmentResponse = ApiSuccessResponse<EnrollmentWithRelations>;
 export type CreateEnrollmentRequest = {
   userId: string;
   courseId: string;
   progress?: number;
 };
-export type UpdateEnrollmentRequest = Partial<Pick<Enrollment, 'progress' | 'completedAt' | 'lastAccessAt'>>;
+export type UpdateEnrollmentRequest = Partial<
+  Pick<Enrollment, "progress" | "completedAt" | "lastAccessAt">
+>;
 
 // Newsletter Subscribers
-export type NewsletterSubscribersListResponse = ApiSuccessResponse<PaginatedData<NewsletterSubscriber>>;
-export type NewsletterSubscriberResponse = ApiSuccessResponse<NewsletterSubscriber>;
+export type NewsletterSubscribersListResponse = ApiSuccessResponse<
+  PaginatedData<NewsletterSubscriber>
+>;
+export type NewsletterSubscriberResponse =
+  ApiSuccessResponse<NewsletterSubscriber>;
 
 /**
  * Query Parameters Types
@@ -447,15 +536,15 @@ export type DevicesDataResponse = ApiSuccessResponse<DevicesData>;
 
 // Dashboard Query Parameters
 export interface PaymentsQueryParams {
-  period?: 'monthly' | 'yearly';
+  period?: "monthly" | "yearly";
 }
 
 export interface ProfitQueryParams {
-  period?: 'this_week' | 'last_week';
+  period?: "this_week" | "last_week";
 }
 
 export interface DevicesQueryParams {
-  period?: 'monthly' | 'yearly';
+  period?: "monthly" | "yearly";
 }
 
 /**
@@ -463,9 +552,14 @@ export interface DevicesQueryParams {
  */
 
 // Home Landing - using Prisma type
-export type HomeLandingListResponse = ApiSuccessResponse<PaginatedData<HomeLanding>>;
+export type HomeLandingListResponse = ApiSuccessResponse<
+  PaginatedData<HomeLanding>
+>;
 export type HomeLandingResponse = ApiSuccessResponse<HomeLanding>;
-export type CreateHomeLandingRequest = Omit<HomeLanding, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateHomeLandingRequest = Omit<
+  HomeLanding,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdateHomeLandingRequest = Partial<CreateHomeLandingRequest>;
 
 export interface HomeLandingQueryParams extends PaginationParams {
@@ -473,10 +567,16 @@ export interface HomeLandingQueryParams extends PaginationParams {
 }
 
 // Mobile Scroller Steps - using Prisma type
-export type MobileScrollerStepListResponse = ApiSuccessResponse<PaginatedData<MobileScrollerStep>>;
+export type MobileScrollerStepListResponse = ApiSuccessResponse<
+  PaginatedData<MobileScrollerStep>
+>;
 export type MobileScrollerStepResponse = ApiSuccessResponse<MobileScrollerStep>;
-export type CreateMobileScrollerStepRequest = Omit<MobileScrollerStep, 'id' | 'createdAt' | 'updatedAt'>;
-export type UpdateMobileScrollerStepRequest = Partial<CreateMobileScrollerStepRequest>;
+export type CreateMobileScrollerStepRequest = Omit<
+  MobileScrollerStep,
+  "id" | "createdAt" | "updatedAt"
+>;
+export type UpdateMobileScrollerStepRequest =
+  Partial<CreateMobileScrollerStepRequest>;
 
 export interface MobileScrollerStepQueryParams extends PaginationParams {
   published?: boolean;
@@ -489,9 +589,14 @@ export interface AboutPageWithRelations extends AboutPage {
   certificates?: Certificate[];
 }
 
-export type AboutPageListResponse = ApiSuccessResponse<PaginatedData<AboutPageWithRelations>>;
+export type AboutPageListResponse = ApiSuccessResponse<
+  PaginatedData<AboutPageWithRelations>
+>;
 export type AboutPageResponse = ApiSuccessResponse<AboutPageWithRelations>;
-export type CreateAboutPageRequest = Omit<AboutPage, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateAboutPageRequest = Omit<
+  AboutPage,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdateAboutPageRequest = Partial<CreateAboutPageRequest>;
 
 export interface AboutPageQueryParams extends PaginationParams {
@@ -499,9 +604,14 @@ export interface AboutPageQueryParams extends PaginationParams {
 }
 
 // Resume Items - using Prisma type
-export type ResumeItemListResponse = ApiSuccessResponse<PaginatedData<ResumeItem>>;
+export type ResumeItemListResponse = ApiSuccessResponse<
+  PaginatedData<ResumeItem>
+>;
 export type ResumeItemResponse = ApiSuccessResponse<ResumeItem>;
-export type CreateResumeItemRequest = Omit<ResumeItem, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateResumeItemRequest = Omit<
+  ResumeItem,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdateResumeItemRequest = Partial<CreateResumeItemRequest>;
 
 export interface ResumeItemQueryParams extends PaginationParams, SearchParams {
@@ -510,9 +620,14 @@ export interface ResumeItemQueryParams extends PaginationParams, SearchParams {
 }
 
 // Team Members - using Prisma type
-export type TeamMemberListResponse = ApiSuccessResponse<PaginatedData<TeamMember>>;
+export type TeamMemberListResponse = ApiSuccessResponse<
+  PaginatedData<TeamMember>
+>;
 export type TeamMemberResponse = ApiSuccessResponse<TeamMember>;
-export type CreateTeamMemberRequest = Omit<TeamMember, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateTeamMemberRequest = Omit<
+  TeamMember,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdateTeamMemberRequest = Partial<CreateTeamMemberRequest>;
 
 export interface TeamMemberQueryParams extends PaginationParams, SearchParams {
@@ -521,9 +636,14 @@ export interface TeamMemberQueryParams extends PaginationParams, SearchParams {
 }
 
 // Certificates - using Prisma type
-export type CertificateListResponse = ApiSuccessResponse<PaginatedData<Certificate>>;
+export type CertificateListResponse = ApiSuccessResponse<
+  PaginatedData<Certificate>
+>;
 export type CertificateResponse = ApiSuccessResponse<Certificate>;
-export type CreateCertificateRequest = Omit<Certificate, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateCertificateRequest = Omit<
+  Certificate,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdateCertificateRequest = Partial<CreateCertificateRequest>;
 
 export interface CertificateQueryParams extends PaginationParams, SearchParams {
@@ -532,12 +652,18 @@ export interface CertificateQueryParams extends PaginationParams, SearchParams {
 }
 
 // Investment Consulting - using Prisma type
-export type InvestmentConsultingListResponse = ApiSuccessResponse<PaginatedData<InvestmentConsulting>>;
-export type InvestmentConsultingResponse = ApiSuccessResponse<InvestmentConsulting>;
-export type CreateInvestmentConsultingRequest = Omit<InvestmentConsulting, 'id' | 'createdAt' | 'updatedAt'>;
-export type UpdateInvestmentConsultingRequest = Partial<CreateInvestmentConsultingRequest>;
+export type BusinessConsultingListResponse = ApiSuccessResponse<
+  PaginatedData<BusinessConsulting>
+>;
+export type BusinessConsultingResponse = ApiSuccessResponse<BusinessConsulting>;
+export type CreateBusinessConsultingRequest = Omit<
+  BusinessConsulting,
+  "id" | "createdAt" | "updatedAt"
+>;
+export type UpdateBusinessConsultingRequest =
+  Partial<CreateBusinessConsultingRequest>;
 
-export interface InvestmentConsultingQueryParams extends PaginationParams {
+export interface BusinessConsultingQueryParams extends PaginationParams {
   published?: boolean;
 }
 
@@ -547,33 +673,54 @@ export interface InvestmentPlansWithRelations extends InvestmentPlans {
   tags?: InvestmentTag[];
 }
 
-export type InvestmentPlansListResponse = ApiSuccessResponse<PaginatedData<InvestmentPlansWithRelations>>;
-export type InvestmentPlansResponse = ApiSuccessResponse<InvestmentPlansWithRelations>;
-export type CreateInvestmentPlansRequest = Omit<InvestmentPlans, 'id' | 'createdAt' | 'updatedAt'>;
-export type UpdateInvestmentPlansRequest = Partial<CreateInvestmentPlansRequest>;
+export type InvestmentPlansListResponse = ApiSuccessResponse<
+  PaginatedData<InvestmentPlansWithRelations>
+>;
+export type InvestmentPlansResponse =
+  ApiSuccessResponse<InvestmentPlansWithRelations>;
+export type CreateInvestmentPlansRequest = Omit<
+  InvestmentPlans,
+  "id" | "createdAt" | "updatedAt"
+>;
+export type UpdateInvestmentPlansRequest =
+  Partial<CreateInvestmentPlansRequest>;
 
 export interface InvestmentPlansQueryParams extends PaginationParams {
   published?: boolean;
 }
 
 // Investment Plan Items - using Prisma type
-export type InvestmentPlanListResponse = ApiSuccessResponse<PaginatedData<InvestmentPlan>>;
+export type InvestmentPlanListResponse = ApiSuccessResponse<
+  PaginatedData<InvestmentPlan>
+>;
 export type InvestmentPlanResponse = ApiSuccessResponse<InvestmentPlan>;
-export type CreateInvestmentPlanRequest = Omit<InvestmentPlan, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateInvestmentPlanRequest = Omit<
+  InvestmentPlan,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdateInvestmentPlanRequest = Partial<CreateInvestmentPlanRequest>;
 
-export interface InvestmentPlanQueryParams extends PaginationParams, SearchParams {
+export interface InvestmentPlanQueryParams
+  extends PaginationParams,
+    SearchParams {
   investmentPlansId?: string;
   published?: boolean;
 }
 
 // Investment Tags - using Prisma type
-export type InvestmentTagListResponse = ApiSuccessResponse<PaginatedData<InvestmentTag>>;
+export type InvestmentTagListResponse = ApiSuccessResponse<
+  PaginatedData<InvestmentTag>
+>;
 export type InvestmentTagResponse = ApiSuccessResponse<InvestmentTag>;
-export type CreateInvestmentTagRequest = Omit<InvestmentTag, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateInvestmentTagRequest = Omit<
+  InvestmentTag,
+  "id" | "createdAt" | "updatedAt"
+>;
 export type UpdateInvestmentTagRequest = Partial<CreateInvestmentTagRequest>;
 
-export interface InvestmentTagQueryParams extends PaginationParams, SearchParams {
+export interface InvestmentTagQueryParams
+  extends PaginationParams,
+    SearchParams {
   investmentPlansId?: string;
   published?: boolean;
 }

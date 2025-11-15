@@ -3,29 +3,29 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
-  useCreateInvestmentConsulting,
-  useUpdateInvestmentConsulting,
-  useInvestmentConsultingDetail,
+  useCreateBusinessConsulting,
+  useUpdateBusinessConsulting,
+  useBusinessConsultingDetail,
 } from "@/hooks/api";
-import type { CreateInvestmentConsultingRequest } from "@/types/api";
+import type { CreateBusinessConsultingRequest } from "@/types/api";
 
-interface InvestmentConsultingFormProps {
+interface BusinessConsultingFormProps {
   consultingId?: string;
   isEdit?: boolean;
 }
 
-const InvestmentConsultingForm: React.FC<InvestmentConsultingFormProps> = ({
+const BusinessConsultingForm: React.FC<BusinessConsultingFormProps> = ({
   consultingId,
   isEdit = false,
 }) => {
   const router = useRouter();
-  const createInvestmentConsulting = useCreateInvestmentConsulting();
-  const updateInvestmentConsulting = useUpdateInvestmentConsulting();
-  const { data: consultingData } = useInvestmentConsultingDetail(
-    consultingId || ""
+  const createBusinessConsulting = useCreateBusinessConsulting();
+  const updateBusinessConsulting = useUpdateBusinessConsulting();
+  const { data: consultingData } = useBusinessConsultingDetail(
+    consultingId || "",
   );
 
-  const [formData, setFormData] = useState<CreateInvestmentConsultingRequest>({
+  const [formData, setFormData] = useState<CreateBusinessConsultingRequest>({
     title: "",
     description: "",
     image: null,
@@ -87,13 +87,13 @@ const InvestmentConsultingForm: React.FC<InvestmentConsultingFormProps> = ({
       };
 
       if (isEdit && consultingId) {
-        await updateInvestmentConsulting.mutateAsync({
+        await updateBusinessConsulting.mutateAsync({
           id: consultingId,
           data: submitData,
         });
         alert("صفحه مشاوره سرمایه‌گذاری با موفقیت به‌روزرسانی شد");
       } else {
-        await createInvestmentConsulting.mutateAsync(submitData);
+        await createBusinessConsulting.mutateAsync(submitData);
         alert("صفحه مشاوره سرمایه‌گذاری با موفقیت ایجاد شد");
       }
       router.refresh();
@@ -106,7 +106,7 @@ const InvestmentConsultingForm: React.FC<InvestmentConsultingFormProps> = ({
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value, type } = e.target;
 
@@ -125,7 +125,9 @@ const InvestmentConsultingForm: React.FC<InvestmentConsultingFormProps> = ({
     <div className="rounded-[10px] border border-stroke bg-white shadow-1 dark:border-dark-3 dark:bg-gray-dark">
       <div className="border-b border-stroke px-7 py-4 dark:border-dark-3">
         <h3 className="font-medium text-dark dark:text-white">
-          {isEdit ? "ویرایش صفحه مشاوره سرمایه‌گذاری" : "افزودن صفحه مشاوره سرمایه‌گذاری جدید"}
+          {isEdit
+            ? "ویرایش صفحه مشاوره سرمایه‌گذاری"
+            : "افزودن صفحه مشاوره سرمایه‌گذاری جدید"}
         </h3>
       </div>
 
@@ -393,10 +395,14 @@ const InvestmentConsultingForm: React.FC<InvestmentConsultingFormProps> = ({
         <div className="flex justify-end gap-3">
           <button
             type="submit"
-            disabled={createInvestmentConsulting.isPending || updateInvestmentConsulting.isPending}
+            disabled={
+              createBusinessConsulting.isPending ||
+              updateBusinessConsulting.isPending
+            }
             className="rounded bg-primary px-6 py-2.5 font-medium text-white hover:bg-opacity-90 disabled:opacity-50"
           >
-            {createInvestmentConsulting.isPending || updateInvestmentConsulting.isPending
+            {createBusinessConsulting.isPending ||
+            updateBusinessConsulting.isPending
               ? "در حال ذخیره..."
               : "ذخیره"}
           </button>
@@ -406,4 +412,4 @@ const InvestmentConsultingForm: React.FC<InvestmentConsultingFormProps> = ({
   );
 };
 
-export default InvestmentConsultingForm;
+export default BusinessConsultingForm;

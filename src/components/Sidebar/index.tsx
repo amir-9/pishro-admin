@@ -242,9 +242,7 @@ const menuGroups = [
         ),
         label: "صفحه اصلی",
         route: "/home-landing",
-        children: [
-          { label: "مراحل اسکرولر", route: "/home-landing/scroller" }
-        ],
+        children: [{ label: "مراحل اسکرولر", route: "/home-landing/scroller" }],
       },
       {
         icon: (
@@ -286,7 +284,7 @@ const menuGroups = [
           </svg>
         ),
         label: "مشاوره سرمایه‌گذاری",
-        route: "/investment-consulting",
+        route: "/business-consulting",
       },
       {
         icon: (
