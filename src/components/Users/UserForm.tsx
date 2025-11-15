@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCreateUser, useUpdateUser, useUser } from "@/hooks/api/use-users";
 import type { CreateUserRequest } from "@/types/api";
+import { toast } from "sonner";
 
 interface UserFormProps {
   userId?: string;
@@ -62,14 +63,14 @@ const UserForm: React.FC<UserFormProps> = ({ userId, isEdit = false }) => {
         const { password, ...restData } = formData;
         const updateData = password ? formData : restData;
         await updateUser.mutateAsync({ id: userId, data: updateData });
-        alert("کاربر با موفقیت به‌روزرسانی شد");
+        toast.success("کاربر با موفقیت به‌روزرسانی شد");
       } else {
         await createUser.mutateAsync(formData);
-        alert("کاربر با موفقیت ایجاد شد");
+        toast.success("کاربر با موفقیت ایجاد شد");
       }
       router.push("/users");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره کاربر");
+      toast.error(error?.message || "خطا در ذخیره کاربر");
       console.error(error);
     }
   };

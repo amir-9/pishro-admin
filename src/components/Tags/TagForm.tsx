@@ -7,6 +7,7 @@ import {
   useUpdateTag,
   useTag,
 } from "@/hooks/api/use-tags";
+import { toast } from "sonner";
 import type { CreateTagRequest } from "@/types/api";
 
 interface TagFormProps {
@@ -53,14 +54,14 @@ const TagForm: React.FC<TagFormProps> = ({ tagId, isEdit = false }) => {
     try {
       if (isEdit && tagId) {
         await updateTag.mutateAsync({ id: tagId, data: formData });
-        alert("تگ با موفقیت به‌روزرسانی شد");
+        toast.success("تگ با موفقیت به‌روزرسانی شد");
       } else {
         await createTag.mutateAsync(formData);
-        alert("تگ با موفقیت ایجاد شد");
+        toast.success("تگ با موفقیت ایجاد شد");
       }
       router.push("/tags");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره تگ");
+      toast.error(error?.message || "خطا در ذخیره تگ");
       console.error(error);
     }
   };

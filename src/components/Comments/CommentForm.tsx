@@ -7,6 +7,7 @@ import {
   useUpdateComment,
   useComment,
 } from "@/hooks/api/use-comments";
+import { toast } from "sonner";
 import { useCourses } from "@/hooks/api/use-courses";
 import { useCategories } from "@/hooks/api/use-categories";
 import type { CreateCommentRequest } from "@/types/api";
@@ -68,14 +69,14 @@ const CommentForm: React.FC<CommentFormProps> = ({
     try {
       if (isEdit && commentId) {
         await updateComment.mutateAsync({ id: commentId, data: formData });
-        alert("نظر با موفقیت به‌روزرسانی شد");
+        toast.success("نظر با موفقیت به‌روزرسانی شد");
       } else {
         await createComment.mutateAsync(formData);
-        alert("نظر با موفقیت ایجاد شد");
+        toast.success("نظر با موفقیت ایجاد شد");
       }
       router.push("/comments");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره نظر");
+      toast.error(error?.message || "خطا در ذخیره نظر");
       console.error(error);
     }
   };

@@ -8,6 +8,7 @@ import {
   useBusinessConsultingDetail,
 } from "@/hooks/api";
 import type { CreateBusinessConsultingRequest } from "@/types/api";
+import { toast } from "sonner";
 
 interface BusinessConsultingFormProps {
   consultingId?: string;
@@ -91,14 +92,14 @@ const BusinessConsultingForm: React.FC<BusinessConsultingFormProps> = ({
           id: consultingId,
           data: submitData,
         });
-        alert("صفحه مشاوره سرمایه‌گذاری با موفقیت به‌روزرسانی شد");
+        toast.success("صفحه مشاوره سرمایه‌گذاری با موفقیت به‌روزرسانی شد");
       } else {
         await createBusinessConsulting.mutateAsync(submitData);
-        alert("صفحه مشاوره سرمایه‌گذاری با موفقیت ایجاد شد");
+        toast.success("صفحه مشاوره سرمایه‌گذاری با موفقیت ایجاد شد");
       }
       router.refresh();
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره صفحه");
+      toast.error(error?.message || "خطا در ذخیره صفحه");
       console.error(error);
     }
   };

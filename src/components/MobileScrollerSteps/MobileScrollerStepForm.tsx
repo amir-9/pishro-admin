@@ -7,6 +7,7 @@ import {
   useUpdateMobileScrollerStep,
   useMobileScrollerStep,
 } from "@/hooks/api";
+import { toast } from "sonner";
 import type { CreateMobileScrollerStepRequest } from "@/types/api";
 
 interface MobileScrollerStepFormProps {
@@ -67,15 +68,15 @@ const MobileScrollerStepForm: React.FC<MobileScrollerStepFormProps> = ({
 
       if (isEdit && stepId) {
         await updateStep.mutateAsync({ id: stepId, data: submitData });
-        alert("مرحله با موفقیت به‌روزرسانی شد");
+        toast.success("مرحله با موفقیت به‌روزرسانی شد");
         router.refresh();
       } else {
         await createStep.mutateAsync(submitData);
-        alert("مرحله با موفقیت ایجاد شد");
+        toast.success("مرحله با موفقیت ایجاد شد");
         router.refresh();
       }
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره مرحله");
+      toast.error(error?.message || "خطا در ذخیره مرحله");
       console.error(error);
     }
   };

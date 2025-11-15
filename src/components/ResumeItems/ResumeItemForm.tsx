@@ -8,6 +8,7 @@ import {
   useResumeItem,
   useAboutPages,
 } from "@/hooks/api/use-about-page";
+import { toast } from "sonner";
 import type { CreateResumeItemRequest } from "@/types/api";
 
 interface ResumeItemFormProps {
@@ -64,14 +65,14 @@ const ResumeItemForm: React.FC<ResumeItemFormProps> = ({
     try {
       if (isEdit && itemId) {
         await updateItem.mutateAsync({ id: itemId, data: formData });
-        alert("آیتم با موفقیت به‌روزرسانی شد");
+        toast.success("آیتم با موفقیت به‌روزرسانی شد");
       } else {
         await createItem.mutateAsync(formData);
-        alert("آیتم با موفقیت ایجاد شد");
+        toast.success("آیتم با موفقیت ایجاد شد");
       }
       router.push("/resume-items");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره آیتم");
+      toast.error(error?.message || "خطا در ذخیره آیتم");
       console.error(error);
     }
   };

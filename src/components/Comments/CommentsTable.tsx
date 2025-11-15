@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useComments, useUpdateComment, useDeleteComment } from "@/hooks/api/use-comments";
 
 import type { CommentWithRelations } from "@/types/api";
+import { toast } from "sonner";
 
 const CommentsTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -21,9 +22,9 @@ const CommentsTable: React.FC = () => {
     if (confirm("آیا از تایید این نظر مطمئن هستید؟")) {
       try {
         await updateComment.mutateAsync({ id: commentId, data: { published: true } });
-        alert("نظر با موفقیت تایید شد");
+        toast.success("نظر با موفقیت تایید شد");
       } catch (error: any) {
-        alert(error?.message || "خطا در تایید نظر");
+        toast.error(error?.message || "خطا در تایید نظر");
       }
     }
   };
@@ -32,9 +33,9 @@ const CommentsTable: React.FC = () => {
     if (confirm("آیا از رد این نظر مطمئن هستید؟")) {
       try {
         await updateComment.mutateAsync({ id: commentId, data: { published: false } });
-        alert("نظر رد شد");
+        toast.success("نظر رد شد");
       } catch (error: any) {
-        alert(error?.message || "خطا در رد نظر");
+        toast.error(error?.message || "خطا در رد نظر");
       }
     }
   };
@@ -43,9 +44,9 @@ const CommentsTable: React.FC = () => {
     if (confirm("آیا از حذف این نظر مطمئن هستید؟ این عملیات قابل بازگشت نیست.")) {
       try {
         await deleteComment.mutateAsync(commentId);
-        alert("نظر با موفقیت حذف شد");
+        toast.success("نظر با موفقیت حذف شد");
       } catch (error: any) {
-        alert(error?.message || "خطا در حذف نظر");
+        toast.error(error?.message || "خطا در حذف نظر");
       }
     }
   };

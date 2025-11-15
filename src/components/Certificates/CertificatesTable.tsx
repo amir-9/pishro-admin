@@ -6,6 +6,7 @@ import {
   useCertificates,
   useDeleteCertificate,
 } from "@/hooks/api/use-about-page";
+import { toast } from "sonner";
 import type { Certificate } from "@/types/api";
 import Image from "next/image";
 
@@ -24,9 +25,9 @@ const CertificatesTable: React.FC = () => {
     if (confirm("آیا از حذف این گواهینامه اطمینان دارید؟")) {
       try {
         await deleteCertificate.mutateAsync(id);
-        alert("گواهینامه با موفقیت حذف شد");
+        toast.success("گواهینامه با موفقیت حذف شد");
       } catch (error) {
-        alert("خطا در حذف گواهینامه");
+        toast.error("خطا در حذف گواهینامه");
         console.error(error);
       }
     }

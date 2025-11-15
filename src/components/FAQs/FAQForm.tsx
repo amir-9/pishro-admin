@@ -7,6 +7,7 @@ import {
   useUpdateFAQ,
   useFAQ,
 } from "@/hooks/api/use-faqs";
+import { toast } from "sonner";
 import { useCategories } from "@/hooks/api/use-categories";
 import type { CreateFAQRequest, FAQCategory } from "@/types/api";
 
@@ -53,14 +54,14 @@ const FAQForm: React.FC<FAQFormProps> = ({ faqId, isEdit = false }) => {
     try {
       if (isEdit && faqId) {
         await updateFAQ.mutateAsync({ id: faqId, data: formData });
-        alert("سوال با موفقیت به‌روزرسانی شد");
+        toast.success("سوال با موفقیت به‌روزرسانی شد");
       } else {
         await createFAQ.mutateAsync(formData);
-        alert("سوال با موفقیت ایجاد شد");
+        toast.success("سوال با موفقیت ایجاد شد");
       }
       router.push("/faqs");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره سوال");
+      toast.error(error?.message || "خطا در ذخیره سوال");
       console.error(error);
     }
   };

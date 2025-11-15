@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import { useOrder, useUpdateOrder } from "@/hooks/api/use-orders";
 import type { OrderStatus } from "@prisma/client";
+import { toast } from "sonner";
 
 const EditOrderPage = () => {
   const params = useParams();
@@ -36,10 +37,10 @@ const EditOrderPage = () => {
 
     try {
       await updateOrder.mutateAsync({ id, data: formData });
-      alert("سفارش با موفقیت به‌روزرسانی شد");
+      toast.success("سفارش با موفقیت به‌روزرسانی شد");
       router.push("/orders");
     } catch (error: any) {
-      alert(error?.message || "خطا در به‌روزرسانی سفارش");
+      toast.error(error?.message || "خطا در به‌روزرسانی سفارش");
       console.error(error);
     }
   };

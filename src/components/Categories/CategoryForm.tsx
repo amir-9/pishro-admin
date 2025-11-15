@@ -7,6 +7,7 @@ import {
   useUpdateCategory,
   useCategory,
 } from "@/hooks/api/use-categories";
+import { toast } from "sonner";
 import type { CreateCategoryRequest, StatsBox } from "@/types/api";
 
 interface CategoryFormProps {
@@ -117,14 +118,14 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
     try {
       if (isEdit && categoryId) {
         await updateCategory.mutateAsync({ id: categoryId, data: formData });
-        alert("دسته‌بندی با موفقیت به‌روزرسانی شد");
+        toast.success("دسته‌بندی با موفقیت به‌روزرسانی شد");
       } else {
         await createCategory.mutateAsync(formData);
-        alert("دسته‌بندی با موفقیت ایجاد شد");
+        toast.success("دسته‌بندی با موفقیت ایجاد شد");
       }
       router.push("/categories");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره دسته‌بندی");
+      toast.error(error?.message || "خطا در ذخیره دسته‌بندی");
       console.error(error);
     }
   };

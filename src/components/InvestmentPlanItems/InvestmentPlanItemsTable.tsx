@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useInvestmentPlanItems, useDeleteInvestmentPlanItem } from "@/hooks/api/use-investment-plans";
 import type { InvestmentPlan } from "@/types/api";
+import { toast } from "sonner";
 
 const InvestmentPlanItemsTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -16,9 +17,9 @@ const InvestmentPlanItemsTable: React.FC = () => {
     if (confirm("آیا از حذف این سبد سرمایه‌گذاری اطمینان دارید؟")) {
       try {
         await deletePlanItem.mutateAsync(id);
-        alert("سبد سرمایه‌گذاری با موفقیت حذف شد");
+        toast.success("سبد سرمایه‌گذاری با موفقیت حذف شد");
       } catch (error) {
-        alert("خطا در حذف سبد سرمایه‌گذاری");
+        toast.error("خطا در حذف سبد سرمایه‌گذاری");
         console.error(error);
       }
     }

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useFAQs, useDeleteFAQ } from "@/hooks/api/use-faqs";
 import type { FAQ } from "@/types/api";
+import { toast } from "sonner";
 
 const FAQsTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -15,9 +16,9 @@ const FAQsTable: React.FC = () => {
     if (confirm("آیا از حذف این سوال اطمینان دارید؟")) {
       try {
         await deleteFAQ.mutateAsync(id);
-        alert("سوال با موفقیت حذف شد");
+        toast.success("سوال با موفقیت حذف شد");
       } catch (error) {
-        alert("خطا در حذف سوال");
+        toast.error("خطا در حذف سوال");
       }
     }
   };

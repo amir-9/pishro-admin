@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCourses, useDeleteCourse } from "@/hooks/api/use-courses";
 import type { CourseWithRelations } from "@/types/api";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const CoursesTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -17,9 +18,9 @@ const CoursesTable: React.FC = () => {
       try {
         await deleteCourse.mutateAsync(id);
 
-        alert("دوره با موفقیت حذف شد");
+        toast.success("دوره با موفقیت حذف شد");
       } catch (error) {
-        alert("خطا در حذف دوره");
+        toast.error("خطا در حذف دوره");
 
         console.error(error);
       }

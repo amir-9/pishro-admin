@@ -7,6 +7,7 @@ import {
   useUpdateBook,
   useBook,
 } from "@/hooks/api/use-books";
+import { toast } from "sonner";
 import type { CreateBookRequest } from "@/types/api";
 
 interface BookFormProps {
@@ -77,14 +78,14 @@ const BookForm: React.FC<BookFormProps> = ({ bookId, isEdit = false }) => {
     try {
       if (isEdit && bookId) {
         await updateBook.mutateAsync({ id: bookId, data: formData });
-        alert("کتاب با موفقیت به‌روزرسانی شد");
+        toast.success("کتاب با موفقیت به‌روزرسانی شد");
       } else {
         await createBook.mutateAsync(formData);
-        alert("کتاب با موفقیت ایجاد شد");
+        toast.success("کتاب با موفقیت ایجاد شد");
       }
       router.push("/books");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره کتاب");
+      toast.error(error?.message || "خطا در ذخیره کتاب");
       console.error(error);
     }
   };

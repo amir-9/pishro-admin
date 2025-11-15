@@ -9,6 +9,7 @@ import {
   useUpdateCourse,
   useCourse,
 } from "@/hooks/api/use-courses";
+import { toast } from "sonner";
 
 import { useCategories } from "@/hooks/api/use-categories";
 
@@ -135,16 +136,16 @@ const CourseForm: React.FC<CourseFormProps> = ({
       if (isEdit && courseId) {
         await updateCourse.mutateAsync({ id: courseId, data: formData });
 
-        alert("دوره با موفقیت به‌روزرسانی شد");
+        toast.success("دوره با موفقیت به‌روزرسانی شد");
       } else {
         await createCourse.mutateAsync(formData);
 
-        alert("دوره با موفقیت ایجاد شد");
+        toast.success("دوره با موفقیت ایجاد شد");
       }
 
       router.push("/courses");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره دوره");
+      toast.error(error?.message || "خطا در ذخیره دوره");
 
       console.error(error);
     }

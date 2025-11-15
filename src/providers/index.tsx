@@ -4,6 +4,7 @@
 import { type ReactNode } from 'react';
 import ReactQueryProvider from './react-query-provider';
 import { AuthProvider } from '@/contexts/auth-context';
+import { Toaster } from 'sonner';
 
 /**
  * Combined Providers
@@ -17,7 +18,10 @@ interface ProvidersProps {
 export default function Providers({ children }: ProvidersProps) {
   return (
     <ReactQueryProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        {children}
+        <Toaster position="top-center" richColors />
+      </AuthProvider>
     </ReactQueryProvider>
   );
 }
