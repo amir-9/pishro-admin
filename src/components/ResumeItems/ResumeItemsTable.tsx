@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useResumeItems, useDeleteResumeItem } from "@/hooks/api/use-about-page";
 import type { ResumeItem } from "@/types/api";
+import { toast } from "sonner";
 
 const ResumeItemsTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -16,9 +17,9 @@ const ResumeItemsTable: React.FC = () => {
     if (confirm("آیا از حذف این آیتم اطمینان دارید؟")) {
       try {
         await deleteResumeItem.mutateAsync(id);
-        alert("آیتم با موفقیت حذف شد");
+        toast.success("آیتم با موفقیت حذف شد");
       } catch (error) {
-        alert("خطا در حذف آیتم");
+        toast.error("خطا در حذف آیتم");
         console.error(error);
       }
     }

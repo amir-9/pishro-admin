@@ -8,6 +8,7 @@ import {
   useCertificate,
   useAboutPages,
 } from "@/hooks/api/use-about-page";
+import { toast } from "sonner";
 import type { CreateCertificateRequest } from "@/types/api";
 import Image from "next/image";
 
@@ -60,14 +61,14 @@ const CertificateForm: React.FC<CertificateFormProps> = ({
     try {
       if (isEdit && certId) {
         await updateCert.mutateAsync({ id: certId, data: formData });
-        alert("گواهینامه با موفقیت به‌روزرسانی شد");
+        toast.success("گواهینامه با موفقیت به‌روزرسانی شد");
       } else {
         await createCert.mutateAsync(formData);
-        alert("گواهینامه با موفقیت ایجاد شد");
+        toast.success("گواهینامه با موفقیت ایجاد شد");
       }
       router.push("/certificates");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره گواهینامه");
+      toast.error(error?.message || "خطا در ذخیره گواهینامه");
       console.error(error);
     }
   };

@@ -7,6 +7,7 @@ import {
   useUpdateNews,
   useNewsArticle,
 } from "@/hooks/api/use-news";
+import { toast } from "sonner";
 import { useCategories } from "@/hooks/api/use-categories";
 import type { CreateNewsRequest } from "@/types/api";
 
@@ -69,14 +70,14 @@ const NewsForm: React.FC<NewsFormProps> = ({ newsId, isEdit = false }) => {
     try {
       if (isEdit && newsId) {
         await updateNews.mutateAsync({ id: newsId, data: formData });
-        alert("خبر با موفقیت به‌روزرسانی شد");
+        toast.success("خبر با موفقیت به‌روزرسانی شد");
       } else {
         await createNews.mutateAsync(formData);
-        alert("خبر با موفقیت ایجاد شد");
+        toast.success("خبر با موفقیت ایجاد شد");
       }
       router.push("/news");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره خبر");
+      toast.error(error?.message || "خطا در ذخیره خبر");
       console.error(error);
     }
   };

@@ -8,6 +8,7 @@ import {
 } from "@/hooks/api/use-about-page";
 import type { TeamMember } from "@/types/api";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const TeamMembersTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -24,9 +25,9 @@ const TeamMembersTable: React.FC = () => {
     if (confirm("آیا از حذف این عضو تیم اطمینان دارید؟")) {
       try {
         await deleteTeamMember.mutateAsync(id);
-        alert("عضو تیم با موفقیت حذف شد");
+        toast.success("عضو تیم با موفقیت حذف شد");
       } catch (error) {
-        alert("خطا در حذف عضو تیم");
+        toast.error("خطا در حذف عضو تیم");
         console.error(error);
       }
     }

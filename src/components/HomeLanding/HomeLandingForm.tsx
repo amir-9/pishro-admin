@@ -7,6 +7,7 @@ import {
   useUpdateHomeLanding,
   useHomeLandingDetail,
 } from "@/hooks/api";
+import { toast } from "sonner";
 import type { CreateHomeLandingRequest } from "@/types/api";
 
 interface HomeLandingFormProps {
@@ -133,15 +134,15 @@ const HomeLandingForm: React.FC<HomeLandingFormProps> = ({
 
       if (isEdit && homeLandingId) {
         await updateHomeLanding.mutateAsync({ id: homeLandingId, data: submitData });
-        alert("صفحه لندینگ با موفقیت به‌روزرسانی شد");
+        toast.success("صفحه لندینگ با موفقیت به‌روزرسانی شد");
         router.refresh();
       } else {
         await createHomeLanding.mutateAsync(submitData);
-        alert("صفحه لندینگ با موفقیت ایجاد شد");
+        toast.success("صفحه لندینگ با موفقیت ایجاد شد");
         router.refresh();
       }
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره صفحه");
+      toast.error(error?.message || "خطا در ذخیره صفحه");
       console.error(error);
     }
   };

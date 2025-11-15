@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useBooks, useDeleteBook } from "@/hooks/api/use-books";
 import type { DigitalBookWithRelations } from "@/types/api";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const BooksTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -16,9 +17,9 @@ const BooksTable: React.FC = () => {
     if (confirm("آیا از حذف این کتاب اطمینان دارید؟")) {
       try {
         await deleteBook.mutateAsync(id);
-        alert("کتاب با موفقیت حذف شد");
+        toast.success("کتاب با موفقیت حذف شد");
       } catch (error) {
-        alert("خطا در حذف کتاب");
+        toast.error("خطا در حذف کتاب");
       }
     }
   };

@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-
 import Link from "next/link";
-
 import {
   useBusinessConsulting,
   useUpdateBusinessConsulting,
   useDeleteBusinessConsulting,
 } from "@/hooks/api";
+import { toast } from "sonner";
 
 import type { BusinessConsulting } from "@/types/api";
 
@@ -35,9 +34,9 @@ const BusinessConsultingTable: React.FC = () => {
           id,
           data: { published: !currentStatus },
         });
-        alert("وضعیت با موفقیت تغییر یافت");
+        toast.success("وضعیت با موفقیت تغییر یافت");
       } catch (error: any) {
-        alert(error?.message || "خطا در تغییر وضعیت");
+        toast.error(error?.message || "خطا در تغییر وضعیت");
       }
     }
   };
@@ -48,9 +47,9 @@ const BusinessConsultingTable: React.FC = () => {
     ) {
       try {
         await deleteBusinessConsulting.mutateAsync(id);
-        alert("صفحه با موفقیت حذف شد");
+        toast.success("صفحه با موفقیت حذف شد");
       } catch (error: any) {
-        alert(error?.message || "خطا در حذف صفحه");
+        toast.error(error?.message || "خطا در حذف صفحه");
       }
     }
   };

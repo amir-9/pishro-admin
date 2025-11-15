@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useHomeLanding, useUpdateHomeLanding, useDeleteHomeLanding } from "@/hooks/api";
 
 import type { HomeLanding } from "@/types/api";
+import { toast } from "sonner";
 
 const HomeLandingTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -21,9 +22,9 @@ const HomeLandingTable: React.FC = () => {
     if (confirm(`آیا از ${currentStatus ? 'عدم انتشار' : 'انتشار'} این صفحه مطمئن هستید؟`)) {
       try {
         await updateHomeLanding.mutateAsync({ id, data: { published: !currentStatus } });
-        alert("وضعیت با موفقیت تغییر یافت");
+        toast.success("وضعیت با موفقیت تغییر یافت");
       } catch (error: any) {
-        alert(error?.message || "خطا در تغییر وضعیت");
+        toast.error(error?.message || "خطا در تغییر وضعیت");
       }
     }
   };
@@ -32,9 +33,9 @@ const HomeLandingTable: React.FC = () => {
     if (confirm("آیا از حذف این صفحه مطمئن هستید؟ این عملیات قابل بازگشت نیست.")) {
       try {
         await deleteHomeLanding.mutateAsync(id);
-        alert("صفحه با موفقیت حذف شد");
+        toast.success("صفحه با موفقیت حذف شد");
       } catch (error: any) {
-        alert(error?.message || "خطا در حذف صفحه");
+        toast.error(error?.message || "خطا در حذف صفحه");
       }
     }
   };

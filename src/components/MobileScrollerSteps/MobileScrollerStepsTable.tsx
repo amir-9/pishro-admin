@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useMobileScrollerSteps, useUpdateMobileScrollerStep, useDeleteMobileScrollerStep } from "@/hooks/api";
 
 import type { MobileScrollerStep } from "@/types/api";
+import { toast } from "sonner";
 
 const MobileScrollerStepsTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -19,9 +20,9 @@ const MobileScrollerStepsTable: React.FC = () => {
     if (confirm(`آیا از ${currentStatus ? 'عدم انتشار' : 'انتشار'} این مرحله مطمئن هستید؟`)) {
       try {
         await updateStep.mutateAsync({ id, data: { published: !currentStatus } });
-        alert("وضعیت با موفقیت تغییر یافت");
+        toast.success("وضعیت با موفقیت تغییر یافت");
       } catch (error: any) {
-        alert(error?.message || "خطا در تغییر وضعیت");
+        toast.error(error?.message || "خطا در تغییر وضعیت");
       }
     }
   };
@@ -30,9 +31,9 @@ const MobileScrollerStepsTable: React.FC = () => {
     if (confirm("آیا از حذف این مرحله مطمئن هستید؟ این عملیات قابل بازگشت نیست.")) {
       try {
         await deleteStep.mutateAsync(id);
-        alert("مرحله با موفقیت حذف شد");
+        toast.success("مرحله با موفقیت حذف شد");
       } catch (error: any) {
-        alert(error?.message || "خطا در حذف مرحله");
+        toast.error(error?.message || "خطا در حذف مرحله");
       }
     }
   };

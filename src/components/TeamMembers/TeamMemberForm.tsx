@@ -9,6 +9,7 @@ import {
   useAboutPages,
 } from "@/hooks/api/use-about-page";
 import type { CreateTeamMemberRequest } from "@/types/api";
+import { toast } from "sonner";
 
 interface TeamMemberFormProps {
   memberId?: string;
@@ -73,14 +74,14 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
     try {
       if (isEdit && memberId) {
         await updateMember.mutateAsync({ id: memberId, data: formData });
-        alert("عضو تیم با موفقیت به‌روزرسانی شد");
+        toast.success("عضو تیم با موفقیت به‌روزرسانی شد");
       } else {
         await createMember.mutateAsync(formData);
-        alert("عضو تیم با موفقیت ایجاد شد");
+        toast.success("عضو تیم با موفقیت ایجاد شد");
       }
       router.push("/team-members");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره عضو تیم");
+      toast.error(error?.message || "خطا در ذخیره عضو تیم");
       console.error(error);
     }
   };

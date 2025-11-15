@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useTags, useDeleteTag } from "@/hooks/api/use-tags";
 import type { TagWithRelations } from "@/types/api";
+import { toast } from "sonner";
 
 const TagsTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -15,9 +16,9 @@ const TagsTable: React.FC = () => {
     if (confirm("آیا از حذف این تگ اطمینان دارید؟")) {
       try {
         await deleteTag.mutateAsync(id);
-        alert("تگ با موفقیت حذف شد");
+        toast.success("تگ با موفقیت حذف شد");
       } catch (error) {
-        alert("خطا در حذف تگ");
+        toast.error("خطا در حذف تگ");
       }
     }
   };

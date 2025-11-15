@@ -8,6 +8,7 @@ import {
   useInvestmentPlanItem,
   useInvestmentPlans,
 } from "@/hooks/api/use-investment-plans";
+import { toast } from "sonner";
 import type { CreateInvestmentPlanRequest } from "@/types/api";
 
 interface InvestmentPlanItemFormProps {
@@ -59,14 +60,14 @@ const InvestmentPlanItemForm: React.FC<InvestmentPlanItemFormProps> = ({
     try {
       if (isEdit && planId) {
         await updatePlan.mutateAsync({ id: planId, data: formData });
-        alert("سبد سرمایه‌گذاری با موفقیت به‌روزرسانی شد");
+        toast.success("سبد سرمایه‌گذاری با موفقیت به‌روزرسانی شد");
       } else {
         await createPlan.mutateAsync(formData);
-        alert("سبد سرمایه‌گذاری با موفقیت ایجاد شد");
+        toast.success("سبد سرمایه‌گذاری با موفقیت ایجاد شد");
       }
       router.push("/investment-plan-items");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره سبد سرمایه‌گذاری");
+      toast.error(error?.message || "خطا در ذخیره سبد سرمایه‌گذاری");
       console.error(error);
     }
   };

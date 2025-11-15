@@ -7,6 +7,7 @@ import {
   useUpdateInvestmentPlans,
   useInvestmentPlansDetail,
 } from "@/hooks/api";
+import { toast } from "sonner";
 import type { CreateInvestmentPlansRequest } from "@/types/api";
 
 interface InvestmentPlansFormProps {
@@ -87,14 +88,14 @@ const InvestmentPlansForm: React.FC<InvestmentPlansFormProps> = ({
           id: plansId,
           data: submitData,
         });
-        alert("صفحه سبدهای سرمایه‌گذاری با موفقیت به‌روزرسانی شد");
+        toast.success("صفحه سبدهای سرمایه‌گذاری با موفقیت به‌روزرسانی شد");
       } else {
         await createInvestmentPlans.mutateAsync(submitData);
-        alert("صفحه سبدهای سرمایه‌گذاری با موفقیت ایجاد شد");
+        toast.success("صفحه سبدهای سرمایه‌گذاری با موفقیت ایجاد شد");
       }
       router.refresh();
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره صفحه");
+      toast.error(error?.message || "خطا در ذخیره صفحه");
       console.error(error);
     }
   };

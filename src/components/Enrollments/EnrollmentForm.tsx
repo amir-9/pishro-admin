@@ -7,6 +7,7 @@ import {
   useUpdateEnrollment,
   useEnrollment,
 } from "@/hooks/api/use-enrollments";
+import { toast } from "sonner";
 import { useUsers } from "@/hooks/api/use-users";
 import { useCourses } from "@/hooks/api/use-courses";
 import type { CreateEnrollmentRequest, UpdateEnrollmentRequest } from "@/types/api";
@@ -64,14 +65,14 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
           lastAccessAt: new Date(),
         };
         await updateEnrollment.mutateAsync({ id: enrollmentId, data: updateData });
-        alert("ثبت‌نام با موفقیت به‌روزرسانی شد");
+        toast.success("ثبت‌نام با موفقیت به‌روزرسانی شد");
       } else {
         await createEnrollment.mutateAsync(formData as CreateEnrollmentRequest);
-        alert("ثبت‌نام با موفقیت ایجاد شد");
+        toast.success("ثبت‌نام با موفقیت ایجاد شد");
       }
       router.push("/enrollments");
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره ثبت‌نام");
+      toast.error(error?.message || "خطا در ذخیره ثبت‌نام");
       console.error(error);
     }
   };

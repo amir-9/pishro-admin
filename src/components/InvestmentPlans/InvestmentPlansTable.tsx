@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useInvestmentPlans, useUpdateInvestmentPlans, useDeleteInvestmentPlans } from "@/hooks/api";
 
 import type { InvestmentPlans } from "@/types/api";
+import { toast } from "sonner";
 
 const InvestmentPlansTable: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -21,9 +22,9 @@ const InvestmentPlansTable: React.FC = () => {
     if (confirm(`آیا از ${currentStatus ? 'عدم انتشار' : 'انتشار'} این برنامه سرمایه‌گذاری مطمئن هستید؟`)) {
       try {
         await updateInvestmentPlans.mutateAsync({ id, data: { published: !currentStatus } });
-        alert("وضعیت با موفقیت تغییر یافت");
+        toast.success("وضعیت با موفقیت تغییر یافت");
       } catch (error: any) {
-        alert(error?.message || "خطا در تغییر وضعیت");
+        toast.error(error?.message || "خطا در تغییر وضعیت");
       }
     }
   };
@@ -32,9 +33,9 @@ const InvestmentPlansTable: React.FC = () => {
     if (confirm("آیا از حذف این برنامه سرمایه‌گذاری مطمئن هستید؟ این عملیات قابل بازگشت نیست.")) {
       try {
         await deleteInvestmentPlans.mutateAsync(id);
-        alert("برنامه با موفقیت حذف شد");
+        toast.success("برنامه با موفقیت حذف شد");
       } catch (error: any) {
-        alert(error?.message || "خطا در حذف برنامه");
+        toast.error(error?.message || "خطا در حذف برنامه");
       }
     }
   };

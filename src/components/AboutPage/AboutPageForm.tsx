@@ -7,6 +7,7 @@ import {
   useUpdateAboutPage,
   useAboutPage,
 } from "@/hooks/api";
+import { toast } from "sonner";
 import type { CreateAboutPageRequest } from "@/types/api";
 
 interface AboutPageFormProps {
@@ -99,15 +100,15 @@ const AboutPageForm: React.FC<AboutPageFormProps> = ({
 
       if (isEdit && aboutPageId) {
         await updateAboutPage.mutateAsync({ id: aboutPageId, data: submitData });
-        alert("صفحه درباره ما با موفقیت به‌روزرسانی شد");
+        toast.success("صفحه درباره ما با موفقیت به‌روزرسانی شد");
         router.refresh();
       } else {
         await createAboutPage.mutateAsync(submitData);
-        alert("صفحه درباره ما با موفقیت ایجاد شد");
+        toast.success("صفحه درباره ما با موفقیت ایجاد شد");
         router.refresh();
       }
     } catch (error: any) {
-      alert(error?.message || "خطا در ذخیره صفحه");
+      toast.error(error?.message || "خطا در ذخیره صفحه");
       console.error(error);
     }
   };
