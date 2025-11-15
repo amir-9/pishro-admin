@@ -818,6 +818,40 @@ model InvestmentConsulting {
   updatedAt DateTime @updatedAt
 }
 
+// مدل برای صفحه مشاوره کسب و کار
+model BusinessConsulting {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // Landing Content
+  title       String
+  description String
+  image       String?
+
+  // Contact Information
+  phoneNumber  String?
+  telegramId   String?
+  telegramLink String?
+  coursesLink  String?
+
+  // Drawer Content (محتوای drawer برای انواع مشاوره)
+  inPersonTitle       String?
+  inPersonDescription String?
+  onlineTitle         String?
+  onlineDescription   String?
+  coursesTitle        String?
+  coursesDescription  String?
+
+  // Meta tags
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String[] @default([])
+
+  published Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // مدل برای صفحه سبدهای سرمایه‌گذاری
 model InvestmentPlans {
   id String @id @default(auto()) @map("_id") @db.ObjectId
