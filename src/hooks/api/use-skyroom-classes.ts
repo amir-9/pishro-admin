@@ -69,7 +69,7 @@ export function useCreateSkyRoomClass() {
         "/admin/skyroom-classes",
         data
       );
-      return response.data;
+      return response;
     },
     onSuccess: () => {
       // Invalidate list cache to refetch data
@@ -96,7 +96,7 @@ export function useUpdateSkyRoomClass() {
         `/admin/skyroom-classes/${id}`,
         data
       );
-      return response.data;
+      return response;
     },
     onSuccess: (response: SkyRoomClassResponse) => {
       // Invalidate list cache
