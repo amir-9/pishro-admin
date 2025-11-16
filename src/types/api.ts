@@ -44,6 +44,9 @@ import type {
   InvestmentPlans,
   InvestmentPlan,
   InvestmentTag,
+  Lesson,
+  HomeSlide,
+  HomeMiniSlider,
 } from "@prisma/client";
 
 import type { ApiSuccessResponse, PaginatedData } from "@/lib/api-response";
@@ -89,6 +92,9 @@ export type {
   InvestmentPlans,
   InvestmentPlan,
   InvestmentTag,
+  Lesson,
+  HomeSlide,
+  HomeMiniSlider,
 };
 
 /**
@@ -395,6 +401,59 @@ export type NewsletterSubscribersListResponse = ApiSuccessResponse<
 export type NewsletterSubscriberResponse =
   ApiSuccessResponse<NewsletterSubscriber>;
 
+// Lessons
+export interface LessonWithRelations extends Lesson {
+  course?: Course;
+}
+
+export type LessonsListResponse = ApiSuccessResponse<
+  PaginatedData<LessonWithRelations>
+>;
+export type LessonResponse = ApiSuccessResponse<LessonWithRelations>;
+export type CreateLessonRequest = Omit<
+  Lesson,
+  "id" | "createdAt" | "updatedAt" | "views"
+>;
+export type UpdateLessonRequest = Partial<CreateLessonRequest>;
+
+// News Comments
+export interface NewsCommentWithRelations extends NewsComment {
+  article?: NewsArticle;
+  user?: Omit<User, "passwordHash"> | null;
+}
+
+export type NewsCommentsListResponse = ApiSuccessResponse<
+  PaginatedData<NewsCommentWithRelations>
+>;
+export type NewsCommentResponse = ApiSuccessResponse<NewsCommentWithRelations>;
+export type CreateNewsCommentRequest = Omit<
+  NewsComment,
+  "id" | "createdAt" | "updatedAt" | "likes"
+>;
+export type UpdateNewsCommentRequest = Partial<CreateNewsCommentRequest>;
+
+// Home Slides
+export type HomeSlidesListResponse = ApiSuccessResponse<
+  PaginatedData<HomeSlide>
+>;
+export type HomeSlideResponse = ApiSuccessResponse<HomeSlide>;
+export type CreateHomeSlideRequest = Omit<
+  HomeSlide,
+  "id" | "createdAt" | "updatedAt"
+>;
+export type UpdateHomeSlideRequest = Partial<CreateHomeSlideRequest>;
+
+// Home Mini Sliders
+export type HomeMiniSlidersListResponse = ApiSuccessResponse<
+  PaginatedData<HomeMiniSlider>
+>;
+export type HomeMiniSliderResponse = ApiSuccessResponse<HomeMiniSlider>;
+export type CreateHomeMiniSliderRequest = Omit<
+  HomeMiniSlider,
+  "id" | "createdAt" | "updatedAt"
+>;
+export type UpdateHomeMiniSliderRequest = Partial<CreateHomeMiniSliderRequest>;
+
 /**
  * Query Parameters Types
  */
@@ -488,6 +547,25 @@ export interface QuizAttemptsQueryParams extends PaginationParams {
   quizId?: string;
   userId?: string;
   passed?: boolean;
+}
+
+export interface LessonsQueryParams extends PaginationParams, SearchParams {
+  courseId?: string;
+  published?: boolean;
+}
+
+export interface NewsCommentsQueryParams extends PaginationParams {
+  articleId?: string;
+  userId?: string;
+}
+
+export interface HomeSlidesQueryParams extends PaginationParams, SearchParams {
+  published?: boolean;
+}
+
+export interface HomeMiniSlidersQueryParams extends PaginationParams, SearchParams {
+  published?: boolean;
+  row?: number;
 }
 
 /**
