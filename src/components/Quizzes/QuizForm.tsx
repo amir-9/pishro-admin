@@ -68,7 +68,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
 
   useEffect(() => {
     if (isEdit && quizData) {
-      const quiz = quizData;
+      const quiz = quizData.data;
 
       setFormData({
         title: quiz.title,
@@ -193,7 +193,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
             >
               <option value="">انتخاب کنید...</option>
 
-              {coursesData?.items?.map((course: any) => (
+              {coursesData?.data?.items?.map((course: any) => (
                 <option key={course.id} value={course.id}>
                   {course.subject}
                 </option>
@@ -214,7 +214,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
             >
               <option value="">انتخاب کنید...</option>
 
-              {categoriesData?.items?.map((cat: any) => (
+              {categoriesData?.data?.items?.map((cat: any) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.title}
                 </option>

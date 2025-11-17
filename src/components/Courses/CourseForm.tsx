@@ -81,7 +81,7 @@ const CourseForm: React.FC<CourseFormProps> = ({
 
   useEffect(() => {
     if (isEdit && courseData) {
-      const course = courseData;
+      const course = courseData.data;
 
       setFormData({
         subject: course.subject,
@@ -285,7 +285,7 @@ const CourseForm: React.FC<CourseFormProps> = ({
             >
               <option value="">انتخاب کنید...</option>
 
-              {categoriesData?.items?.map((cat: any) => (
+              {categoriesData?.data?.items?.map((cat: any) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.title}
                 </option>

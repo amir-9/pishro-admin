@@ -26,11 +26,11 @@ export const faqsKeys = {
  * Get paginated list of FAQs
  */
 export function useFAQs(params?: FAQsQueryParams) {
-  return useQuery({
+  return useQuery<FAQsListResponse>({
     queryKey: faqsKeys.list(params),
     queryFn: async () => {
       const response = await api.get<FAQsListResponse>('/admin/faqs', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -39,11 +39,11 @@ export function useFAQs(params?: FAQsQueryParams) {
  * Get single FAQ by ID
  */
 export function useFAQ(id: string) {
-  return useQuery({
+  return useQuery<FAQResponse>({
     queryKey: faqsKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<FAQResponse>(`/admin/faqs/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

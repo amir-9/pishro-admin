@@ -39,11 +39,11 @@ export const investmentPlansKeys = {
  * Get paginated list of investment plans
  */
 export function useInvestmentPlans(params?: InvestmentPlansQueryParams) {
-  return useQuery({
+  return useQuery<InvestmentPlansListResponse>({
     queryKey: investmentPlansKeys.list(params),
     queryFn: async () => {
       const response = await api.get<InvestmentPlansListResponse>('/admin/investment-plans', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -52,11 +52,11 @@ export function useInvestmentPlans(params?: InvestmentPlansQueryParams) {
  * Get single investment plans page by ID
  */
 export function useInvestmentPlansDetail(id: string) {
-  return useQuery({
+  return useQuery<InvestmentPlansResponse>({
     queryKey: investmentPlansKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<InvestmentPlansResponse>(`/admin/investment-plans/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });
@@ -131,11 +131,11 @@ export const investmentPlanKeys = {
  * Get paginated list of investment plan items
  */
 export function useInvestmentPlanItems(params?: InvestmentPlanQueryParams) {
-  return useQuery({
+  return useQuery<InvestmentPlanListResponse>({
     queryKey: investmentPlanKeys.list(params),
     queryFn: async () => {
       const response = await api.get<InvestmentPlanListResponse>('/admin/investment-plan-items', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -144,11 +144,11 @@ export function useInvestmentPlanItems(params?: InvestmentPlanQueryParams) {
  * Get single investment plan item by ID
  */
 export function useInvestmentPlanItem(id: string) {
-  return useQuery({
+  return useQuery<InvestmentPlanResponse>({
     queryKey: investmentPlanKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<InvestmentPlanResponse>(`/admin/investment-plan-items/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });
@@ -226,11 +226,11 @@ export const investmentTagKeys = {
  * Get paginated list of investment tags
  */
 export function useInvestmentTags(params?: InvestmentTagQueryParams) {
-  return useQuery({
+  return useQuery<InvestmentTagListResponse>({
     queryKey: investmentTagKeys.list(params),
     queryFn: async () => {
       const response = await api.get<InvestmentTagListResponse>('/admin/investment-tags', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -239,11 +239,11 @@ export function useInvestmentTags(params?: InvestmentTagQueryParams) {
  * Get single investment tag by ID
  */
 export function useInvestmentTag(id: string) {
-  return useQuery({
+  return useQuery<InvestmentTagResponse>({
     queryKey: investmentTagKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<InvestmentTagResponse>(`/admin/investment-tags/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

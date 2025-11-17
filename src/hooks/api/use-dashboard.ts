@@ -31,13 +31,13 @@ export const dashboardKeys = {
  * Get dashboard statistics (total views, revenue, orders, users)
  */
 export function useDashboardStats() {
-  return useQuery({
+  return useQuery<DashboardStatsResponse>({
     queryKey: dashboardKeys.stats(),
     queryFn: async () => {
       const response = await api.get<DashboardStatsResponse>(
         "/admin/dashboard/stats",
       );
-      return response.data;
+      return response;
     },
     // Cache for 5 minutes
     staleTime: 5 * 60 * 1000,
@@ -48,14 +48,14 @@ export function useDashboardStats() {
  * Get monthly/yearly payments data
  */
 export function useDashboardPayments(params?: PaymentsQueryParams) {
-  return useQuery({
+  return useQuery<PaymentsDataResponse>({
     queryKey: dashboardKeys.payments(params),
     queryFn: async () => {
       const response = await api.get<PaymentsDataResponse>(
         "/admin/dashboard/payments/monthly",
         { params },
       );
-      return response.data;
+      return response;
     },
     // Cache for 5 minutes
     staleTime: 5 * 60 * 1000,
@@ -66,14 +66,14 @@ export function useDashboardPayments(params?: PaymentsQueryParams) {
  * Get weekly profit data
  */
 export function useDashboardProfit(params?: ProfitQueryParams) {
-  return useQuery({
+  return useQuery<ProfitDataResponse>({
     queryKey: dashboardKeys.profit(params),
     queryFn: async () => {
       const response = await api.get<ProfitDataResponse>(
         "/admin/dashboard/profit/weekly",
         { params },
       );
-      return response.data;
+      return response;
     },
     // Cache for 5 minutes
     staleTime: 5 * 60 * 1000,
@@ -84,14 +84,14 @@ export function useDashboardProfit(params?: ProfitQueryParams) {
  * Get devices analytics data
  */
 export function useDashboardDevices(params?: DevicesQueryParams) {
-  return useQuery({
+  return useQuery<DevicesDataResponse>({
     queryKey: dashboardKeys.devices(params),
     queryFn: async () => {
       const response = await api.get<DevicesDataResponse>(
         "/admin/dashboard/devices",
         { params },
       );
-      return response.data;
+      return response;
     },
     // Cache for 5 minutes
     staleTime: 5 * 60 * 1000,

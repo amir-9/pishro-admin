@@ -48,7 +48,7 @@ const InvestmentPlansForm: React.FC<InvestmentPlansFormProps> = ({
 
   useEffect(() => {
     if (isEdit && investmentPlansData) {
-      const data = investmentPlansData;
+      const data = investmentPlansData.data;
       setFormData({
         title: data.title,
         description: data.description,

@@ -94,11 +94,11 @@ const OrdersTable: React.FC = () => {
               </thead>
 
               <tbody>
-                {data?.items?.map(
+                {data?.data?.items?.map(
                   (order: OrderWithRelations, index: number) => (
                     <tr key={order.id}>
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <p className="font-medium text-dark dark:text-white">
                           #{order.id.slice(0, 8)}
@@ -106,7 +106,7 @@ const OrdersTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <p className="text-dark dark:text-white">
                           {order.user?.firstName} {order.user?.lastName}
@@ -118,7 +118,7 @@ const OrdersTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <p className="font-medium text-dark dark:text-white">
                           {order.total.toLocaleString("fa-IR")} تومان
@@ -126,7 +126,7 @@ const OrdersTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <span
                           className={`inline-flex rounded-full px-3 py-1 text-body-sm font-medium ${getStatusColor(order.status)}`}
@@ -136,7 +136,7 @@ const OrdersTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <p className="text-dark dark:text-white">
                           {new Date(order.createdAt).toLocaleDateString(
@@ -146,7 +146,7 @@ const OrdersTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <div className="flex items-center gap-3">
                           <Link
@@ -194,7 +194,7 @@ const OrdersTable: React.FC = () => {
             {data && (
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-body text-body-sm">
-                  نمایش {data.items.length} از {data.pagination.total} سفارش
+                  نمایش {data.data.items.length} از {data.data.pagination.total} سفارش
                 </p>
 
                 <div className="flex gap-2">
@@ -207,12 +207,12 @@ const OrdersTable: React.FC = () => {
                   </button>
 
                   <span className="px-3 py-1">
-                    صفحه {page} از {data.pagination.totalPages}
+                    صفحه {page} از {data.data.pagination.totalPages}
                   </span>
 
                   <button
                     onClick={() => setPage((p) => p + 1)}
-                    disabled={!data.pagination.hasNextPage}
+                    disabled={!data.data.pagination.hasNextPage}
                     className="rounded bg-gray px-3 py-1 text-body-sm disabled:opacity-50"
                   >
                     بعدی

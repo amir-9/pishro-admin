@@ -27,11 +27,11 @@ export const newsKeys = {
  * Get paginated list of news articles
  */
 export function useNews(params?: NewsQueryParams) {
-  return useQuery({
+  return useQuery<NewsListResponse>({
     queryKey: newsKeys.list(params),
     queryFn: async () => {
       const response = await api.get<NewsListResponse>('/admin/news', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useNews(params?: NewsQueryParams) {
  * Get single news article by ID
  */
 export function useNewsArticle(id: string) {
-  return useQuery({
+  return useQuery<NewsResponse>({
     queryKey: newsKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<NewsResponse>(`/admin/news/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

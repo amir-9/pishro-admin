@@ -27,11 +27,11 @@ export const homeLandingKeys = {
  * Get paginated list of home landing pages
  */
 export function useHomeLanding(params?: HomeLandingQueryParams) {
-  return useQuery({
+  return useQuery<HomeLandingListResponse>({
     queryKey: homeLandingKeys.list(params),
     queryFn: async () => {
       const response = await api.get<HomeLandingListResponse>('/admin/home-landing', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useHomeLanding(params?: HomeLandingQueryParams) {
  * Get single home landing page by ID
  */
 export function useHomeLandingDetail(id: string) {
-  return useQuery({
+  return useQuery<HomeLandingResponse>({
     queryKey: homeLandingKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<HomeLandingResponse>(`/admin/home-landing/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

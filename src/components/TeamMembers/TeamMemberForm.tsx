@@ -45,7 +45,7 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
 
   useEffect(() => {
     if (isEdit && memberData) {
-      const member = memberData;
+      const member = memberData.data;
       setFormData({
         aboutPageId: member.aboutPageId,
         name: member.name,
@@ -60,10 +60,10 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
         order: member.order,
         published: member.published,
       });
-    } else if (!isEdit && aboutPagesData?.items?.[0]?.id) {
+    } else if (!isEdit && aboutPagesData?.data?.items?.[0]?.id) {
       setFormData((prev) => ({
         ...prev,
-        aboutPageId: aboutPagesData.items[0].id,
+        aboutPageId: aboutPagesData.data.items[0].id,
       }));
     }
   }, [isEdit, memberData, aboutPagesData]);
@@ -142,7 +142,7 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
             className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition placeholder:text-dark-6 focus:border-primary active:border-primary disabled:cursor-default dark:border-dark-3 dark:bg-dark-2 dark:text-white"
           >
             <option value="">انتخاب کنید</option>
-            {aboutPagesData?.items?.map((page: any) => (
+            {aboutPagesData?.data?.items?.map((page: any) => (
               <option key={page.id} value={page.id}>
                 {page.heroTitle || page.id}
               </option>

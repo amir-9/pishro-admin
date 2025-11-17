@@ -40,7 +40,7 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
 
   useEffect(() => {
     if (isEdit && enrollmentData) {
-      const enrollment = enrollmentData;
+      const enrollment = enrollmentData.data;
       setFormData({
         progress: enrollment.progress || 0,
         completedAt: enrollment.completedAt || undefined,
@@ -112,7 +112,7 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
                   className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
                 >
                   <option value="">انتخاب کنید...</option>
-                  {usersData?.items?.map((user: any) => (
+                  {usersData?.data?.items?.map((user: any) => (
                     <option key={user.id} value={user.id}>
                       {user.firstName} {user.lastName} - {user.phone}
                     </option>
@@ -132,7 +132,7 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
                   className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
                 >
                   <option value="">انتخاب کنید...</option>
-                  {coursesData?.items?.map((course: any) => (
+                  {coursesData?.data?.items?.map((course: any) => (
                     <option key={course.id} value={course.id}>
                       {course.subject}
                     </option>
@@ -150,20 +150,20 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
               <div>
                 <p className="text-body-sm text-body">کاربر:</p>
                 <p className="font-medium text-dark dark:text-white">
-                  {enrollmentData?.user.firstName} {enrollmentData?.user.lastName}
+                  {enrollmentData?.data?.user.firstName} {enrollmentData?.data?.user.lastName}
                 </p>
               </div>
               <div>
                 <p className="text-body-sm text-body">دوره:</p>
                 <p className="font-medium text-dark dark:text-white">
-                  {enrollmentData?.course.subject}
+                  {enrollmentData?.data?.course.subject}
                 </p>
               </div>
               <div>
                 <p className="text-body-sm text-body">تاریخ ثبت‌نام:</p>
                 <p className="font-medium text-dark dark:text-white">
-                  {enrollmentData?.enrolledAt &&
-                    new Date(enrollmentData.enrolledAt).toLocaleDateString(
+                  {enrollmentData?.data?.enrolledAt &&
+                    new Date(enrollmentData.data.enrolledAt).toLocaleDateString(
                       "fa-IR",
                     )}
                 </p>

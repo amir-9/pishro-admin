@@ -46,7 +46,7 @@ const BookForm: React.FC<BookFormProps> = ({ bookId, isEdit = false }) => {
 
   useEffect(() => {
     if (isEdit && bookData) {
-      const book = bookData;
+      const book = bookData.data;
       setFormData({
         title: book.title,
         slug: book.slug,

@@ -41,7 +41,7 @@ const SkyRoomClassForm: React.FC<SkyRoomClassFormProps> = ({
 
   useEffect(() => {
     if (isEdit && classData) {
-      const skyClass = classData;
+      const skyClass = classData.data;
       setFormData({
         title: skyClass.title,
         description: skyClass.description || null,

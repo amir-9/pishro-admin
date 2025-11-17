@@ -11,7 +11,8 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 export default function DevicesPage() {
   const [period, setPeriod] = useState<'monthly' | 'yearly'>('monthly');
-  const { data: devicesData, isLoading, error } = useDashboardDevices({ period });
+  const { data, isLoading, error } = useDashboardDevices({ period });
+  const devicesData = data?.data;
 
   const series = devicesData
     ? [devicesData.desktop, devicesData.tablet, devicesData.mobile, devicesData.unknown]

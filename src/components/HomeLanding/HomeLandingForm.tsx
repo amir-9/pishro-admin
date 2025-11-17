@@ -70,7 +70,7 @@ const HomeLandingForm: React.FC<HomeLandingFormProps> = ({
 
   useEffect(() => {
     if (isEdit && homeLandingData) {
-      const data = homeLandingData;
+      const data = homeLandingData.data;
       setFormData({
         mainHeroTitle: data.mainHeroTitle || null,
         mainHeroSubtitle: data.mainHeroSubtitle || null,

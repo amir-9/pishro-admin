@@ -60,7 +60,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
 
   useEffect(() => {
     if (isEdit && categoryData) {
-      const category = categoryData;
+      const category = categoryData.data;
 
       // Parse statsBoxes from JSON if needed
       let parsedStatsBoxes: StatsBox[] = [];

@@ -26,11 +26,11 @@ export const orderKeys = {
  * Get paginated list of orders
  */
 export function useOrders(params?: OrdersQueryParams) {
-  return useQuery({
+  return useQuery<OrdersListResponse>({
     queryKey: orderKeys.list(params),
     queryFn: async () => {
       const response = await api.get<OrdersListResponse>('/admin/orders', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -39,11 +39,11 @@ export function useOrders(params?: OrdersQueryParams) {
  * Get single order by ID
  */
 export function useOrder(id: string) {
-  return useQuery({
+  return useQuery<OrderResponse>({
     queryKey: orderKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<OrderResponse>(`/admin/orders/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

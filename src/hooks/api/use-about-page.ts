@@ -45,11 +45,11 @@ export const aboutPageKeys = {
  * Get paginated list of about pages
  */
 export function useAboutPages(params?: AboutPageQueryParams) {
-  return useQuery({
+  return useQuery<AboutPageListResponse>({
     queryKey: aboutPageKeys.list(params),
     queryFn: async () => {
       const response = await api.get<AboutPageListResponse>('/admin/about-page', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -58,11 +58,11 @@ export function useAboutPages(params?: AboutPageQueryParams) {
  * Get single about page by ID
  */
 export function useAboutPage(id: string) {
-  return useQuery({
+  return useQuery<AboutPageResponse>({
     queryKey: aboutPageKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<AboutPageResponse>(`/admin/about-page/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });
@@ -137,11 +137,11 @@ export const resumeItemKeys = {
  * Get paginated list of resume items
  */
 export function useResumeItems(params?: ResumeItemQueryParams) {
-  return useQuery({
+  return useQuery<ResumeItemListResponse>({
     queryKey: resumeItemKeys.list(params),
     queryFn: async () => {
       const response = await api.get<ResumeItemListResponse>('/admin/resume-items', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -150,11 +150,11 @@ export function useResumeItems(params?: ResumeItemQueryParams) {
  * Get single resume item by ID
  */
 export function useResumeItem(id: string) {
-  return useQuery({
+  return useQuery<ResumeItemResponse>({
     queryKey: resumeItemKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<ResumeItemResponse>(`/admin/resume-items/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });
@@ -232,11 +232,11 @@ export const teamMemberKeys = {
  * Get paginated list of team members
  */
 export function useTeamMembers(params?: TeamMemberQueryParams) {
-  return useQuery({
+  return useQuery<TeamMemberListResponse>({
     queryKey: teamMemberKeys.list(params),
     queryFn: async () => {
       const response = await api.get<TeamMemberListResponse>('/admin/team-members', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -245,11 +245,11 @@ export function useTeamMembers(params?: TeamMemberQueryParams) {
  * Get single team member by ID
  */
 export function useTeamMember(id: string) {
-  return useQuery({
+  return useQuery<TeamMemberResponse>({
     queryKey: teamMemberKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<TeamMemberResponse>(`/admin/team-members/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });
@@ -327,11 +327,11 @@ export const certificateKeys = {
  * Get paginated list of certificates
  */
 export function useCertificates(params?: CertificateQueryParams) {
-  return useQuery({
+  return useQuery<CertificateListResponse>({
     queryKey: certificateKeys.list(params),
     queryFn: async () => {
       const response = await api.get<CertificateListResponse>('/admin/certificates', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -340,11 +340,11 @@ export function useCertificates(params?: CertificateQueryParams) {
  * Get single certificate by ID
  */
 export function useCertificate(id: string) {
-  return useQuery({
+  return useQuery<CertificateResponse>({
     queryKey: certificateKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<CertificateResponse>(`/admin/certificates/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

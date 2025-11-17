@@ -31,7 +31,7 @@ const NewsletterSubscriberForm: React.FC<NewsletterSubscriberFormProps> = ({
   useEffect(() => {
     if (isEdit && subscriberData) {
       setFormData({
-        phone: subscriberData.phone,
+        phone: subscriberData.data.phone,
       });
     }
   }, [isEdit, subscriberData]);

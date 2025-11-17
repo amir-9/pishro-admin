@@ -10,6 +10,7 @@ import {
 import { toast } from "sonner";
 import type { CreateQuizQuestionRequest } from "@/types/api";
 import type { QuestionType } from "@prisma/client";
+import type { JsonValue } from "@prisma/client/runtime/library";
 
 interface QuizQuestionFormProps {
   questionId?: string;
@@ -50,7 +51,7 @@ const QuizQuestionForm: React.FC<QuizQuestionFormProps> = ({
 
   useEffect(() => {
     if (isEdit && questionData) {
-      const question = questionData;
+      const question = questionData.data;
       setFormData({
         quizId: question.quizId,
         question: question.question,
@@ -64,7 +65,7 @@ const QuizQuestionForm: React.FC<QuizQuestionFormProps> = ({
 
       // Parse options if they exist
       if (question.options && Array.isArray(question.options)) {
-        setOptions(question.options as QuestionOption[]);
+        setOptions(question.options as unknown as QuestionOption[]);
       }
     }
   }, [isEdit, questionData]);
@@ -104,8 +105,8 @@ const QuizQuestionForm: React.FC<QuizQuestionFormProps> = ({
         options:
           formData.questionType === "MULTIPLE_CHOICE" ||
           formData.questionType === "MULTIPLE_SELECT"
-            ? options
-            : [],
+            ? (options as unknown as JsonValue)
+            : ([] as unknown as JsonValue),
         correctAnswer:
           formData.questionType === "TRUE_FALSE"
             ? formData.correctAnswer

@@ -27,11 +27,11 @@ export const categoryKeys = {
  * Get paginated list of categories
  */
 export function useCategories(params?: CategoriesQueryParams) {
-  return useQuery({
+  return useQuery<CategoriesListResponse>({
     queryKey: categoryKeys.list(params),
     queryFn: async () => {
       const response = await api.get<CategoriesListResponse>('/admin/categories', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useCategories(params?: CategoriesQueryParams) {
  * Get single category by ID
  */
 export function useCategory(id: string) {
-  return useQuery({
+  return useQuery<CategoryResponse>({
     queryKey: categoryKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<CategoryResponse>(`/admin/categories/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

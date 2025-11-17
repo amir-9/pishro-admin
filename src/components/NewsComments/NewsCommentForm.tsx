@@ -36,7 +36,7 @@ const NewsCommentForm: React.FC<NewsCommentFormProps> = ({
 
   useEffect(() => {
     if (isEdit && commentData) {
-      const comment = commentData;
+      const comment = commentData.data;
       setFormData({
         content: comment.content,
         articleId: comment.articleId || undefined,
@@ -108,7 +108,7 @@ const NewsCommentForm: React.FC<NewsCommentFormProps> = ({
             className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
           >
             <option value="">انتخاب کنید...</option>
-            {newsData?.items?.map((article: any) => (
+            {newsData?.data?.items?.map((article: any) => (
               <option key={article.id} value={article.id}>
                 {article.title}
               </option>
@@ -127,7 +127,7 @@ const NewsCommentForm: React.FC<NewsCommentFormProps> = ({
             className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
           >
             <option value="">انتخاب کنید...</option>
-            {usersData?.items?.map((user: any) => (
+            {usersData?.data?.items?.map((user: any) => (
               <option key={user.id} value={user.id}>
                 {user.firstName
                   ? `${user.firstName} ${user.lastName || ""} (${user.phoneNumber})`
@@ -158,7 +158,7 @@ const NewsCommentForm: React.FC<NewsCommentFormProps> = ({
             </label>
             <input
               type="text"
-              value={commentData.likes?.length || 0}
+              value={commentData?.data?.likes?.length || 0}
               disabled
               className="w-full rounded-[7px] border-[1.5px] border-stroke bg-gray px-5.5 py-3 text-dark outline-none dark:border-dark-3 dark:bg-dark-2 dark:text-white"
             />

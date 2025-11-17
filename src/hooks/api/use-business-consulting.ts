@@ -28,14 +28,14 @@ export const businessConsultingKeys = {
  * Get paginated list of investment consulting pages
  */
 export function useBusinessConsulting(params?: BusinessConsultingQueryParams) {
-  return useQuery({
+  return useQuery<BusinessConsultingListResponse>({
     queryKey: businessConsultingKeys.list(params),
     queryFn: async () => {
       const response = await api.get<BusinessConsultingListResponse>(
         "/admin/business-consulting",
         { params },
       );
-      return response.data;
+      return response;
     },
   });
 }
@@ -44,13 +44,13 @@ export function useBusinessConsulting(params?: BusinessConsultingQueryParams) {
  * Get single investment consulting page by ID
  */
 export function useBusinessConsultingDetail(id: string) {
-  return useQuery({
+  return useQuery<BusinessConsultingResponse>({
     queryKey: businessConsultingKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<BusinessConsultingResponse>(
         `/admin/business-consulting/${id}`,
       );
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

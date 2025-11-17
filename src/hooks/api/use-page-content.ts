@@ -35,11 +35,11 @@ export const pageContentKeys = {
  * Get paginated list of page contents
  */
 export function usePageContents(params?: PageContentsQueryParams) {
-  return useQuery({
+  return useQuery<PageContentsListResponse>({
     queryKey: pageContentKeys.list(params),
     queryFn: async () => {
       const response = await api.get<PageContentsListResponse>('/admin/page-contents', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -48,11 +48,11 @@ export function usePageContents(params?: PageContentsQueryParams) {
  * Get single page content by ID
  */
 export function usePageContent(id: string) {
-  return useQuery({
+  return useQuery<PageContentResponse>({
     queryKey: pageContentKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<PageContentResponse>(`/admin/page-contents/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

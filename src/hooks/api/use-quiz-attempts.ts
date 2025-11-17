@@ -25,11 +25,11 @@ export const quizAttemptKeys = {
  * Get paginated list of quiz attempts
  */
 export function useQuizAttempts(params?: QuizAttemptsQueryParams) {
-  return useQuery({
+  return useQuery<QuizAttemptsListResponse>({
     queryKey: quizAttemptKeys.list(params),
     queryFn: async () => {
       const response = await api.get<QuizAttemptsListResponse>('/admin/quiz-attempts', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -38,11 +38,11 @@ export function useQuizAttempts(params?: QuizAttemptsQueryParams) {
  * Get single quiz attempt by ID
  */
 export function useQuizAttempt(id: string) {
-  return useQuery({
+  return useQuery<QuizAttemptResponse>({
     queryKey: quizAttemptKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<QuizAttemptResponse>(`/admin/quiz-attempts/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

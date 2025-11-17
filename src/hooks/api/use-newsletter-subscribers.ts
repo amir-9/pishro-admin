@@ -42,11 +42,11 @@ export type BroadcastSMSRequest = {
  * Get paginated list of newsletter subscribers
  */
 export function useNewsletterSubscribers(params?: NewsletterSubscribersQueryParams) {
-  return useQuery({
+  return useQuery<NewsletterSubscribersListResponse>({
     queryKey: newsletterSubscriberKeys.list(params),
     queryFn: async () => {
       const response = await api.get<NewsletterSubscribersListResponse>('/admin/newsletter-subscribers', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -55,11 +55,11 @@ export function useNewsletterSubscribers(params?: NewsletterSubscribersQueryPara
  * Get single newsletter subscriber by ID
  */
 export function useNewsletterSubscriber(id: string) {
-  return useQuery({
+  return useQuery<NewsletterSubscriberResponse>({
     queryKey: newsletterSubscriberKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<NewsletterSubscriberResponse>(`/admin/newsletter-subscribers/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });
@@ -124,7 +124,7 @@ export function useDeleteNewsletterSubscriber() {
 export function useBroadcastSMS() {
   return useMutation({
     mutationFn: async (data: BroadcastSMSRequest) => {
-      const response = await api.post('/admin/newsletter-subscribers/broadcast-sms', data);
+      const response = await api.post<any>('/admin/newsletter-subscribers/broadcast-sms', data);
       return response.data;
     },
   });

@@ -37,7 +37,7 @@ const InvestmentPlanItemForm: React.FC<InvestmentPlanItemFormProps> = ({
 
   useEffect(() => {
     if (isEdit && planData) {
-      const plan = planData;
+      const plan = planData.data;
       setFormData({
         investmentPlansId: plan.investmentPlansId,
         label: plan.label,
@@ -46,10 +46,10 @@ const InvestmentPlanItemForm: React.FC<InvestmentPlanItemFormProps> = ({
         order: plan.order,
         published: plan.published,
       });
-    } else if (!isEdit && investmentPlansData?.items?.[0]?.id) {
+    } else if (!isEdit && investmentPlansData?.data?.items?.[0]?.id) {
       setFormData((prev) => ({
         ...prev,
-        investmentPlansId: investmentPlansData.items[0].id,
+        investmentPlansId: investmentPlansData.data.items[0].id,
       }));
     }
   }, [isEdit, planData, investmentPlansData]);
@@ -111,7 +111,7 @@ const InvestmentPlanItemForm: React.FC<InvestmentPlanItemFormProps> = ({
             className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition placeholder:text-dark-6 focus:border-primary active:border-primary disabled:cursor-default dark:border-dark-3 dark:bg-dark-2 dark:text-white"
           >
             <option value="">انتخاب کنید</option>
-            {investmentPlansData?.items?.map((page: any) => (
+            {investmentPlansData?.data?.items?.map((page: any) => (
               <option key={page.id} value={page.id}>
                 {page.title || page.id}
               </option>

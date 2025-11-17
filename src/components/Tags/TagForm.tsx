@@ -34,7 +34,7 @@ const TagForm: React.FC<TagFormProps> = ({ tagId, isEdit = false }) => {
 
   useEffect(() => {
     if (isEdit && tagData) {
-      const tag = tagData;
+      const tag = tagData.data;
       setFormData({
         slug: tag.slug,
         title: tag.title,

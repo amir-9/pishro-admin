@@ -9,7 +9,8 @@ import { useEnrollment } from "@/hooks/api/use-enrollments";
 const EnrollmentDetailPage = () => {
   const params = useParams();
   const id = params.id as string;
-  const { data: enrollment, isLoading, error } = useEnrollment(id);
+  const { data, isLoading, error } = useEnrollment(id);
+  const enrollment = data?.data;
 
   if (isLoading) {
     return (

@@ -10,7 +10,7 @@ const ChartThree: React.FC = () => {
   const { data: devicesData, isLoading, error } = useDashboardDevices({ period });
 
   const series = devicesData
-    ? [devicesData.desktop, devicesData.tablet, devicesData.mobile, devicesData.unknown]
+    ? [devicesData.data.desktop, devicesData.data.tablet, devicesData.data.mobile, devicesData.data.unknown]
     : [0, 0, 0, 0];
 
   const options: ApexOptions = {
@@ -123,7 +123,7 @@ const ChartThree: React.FC = () => {
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue"></span>
               <p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
                 <span> دسکتاپ </span>
-                <span> {devicesData?.desktop}% </span>
+                <span> {devicesData?.data?.desktop}% </span>
               </p>
             </div>
           </div>
@@ -132,7 +132,7 @@ const ChartThree: React.FC = () => {
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue-light"></span>
               <p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
                 <span> تبلت </span>
-                <span> {devicesData?.tablet}% </span>
+                <span> {devicesData?.data?.tablet}% </span>
               </p>
             </div>
           </div>
@@ -141,7 +141,7 @@ const ChartThree: React.FC = () => {
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue-light-2"></span>
               <p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
                 <span> موبایل </span>
-                <span> {devicesData?.mobile}% </span>
+                <span> {devicesData?.data?.mobile}% </span>
               </p>
             </div>
           </div>
@@ -150,7 +150,7 @@ const ChartThree: React.FC = () => {
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue-light-3"></span>
               <p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
                 <span> نامشخص </span>
-                <span> {devicesData?.unknown}% </span>
+                <span> {devicesData?.data?.unknown}% </span>
               </p>
             </div>
           </div>
