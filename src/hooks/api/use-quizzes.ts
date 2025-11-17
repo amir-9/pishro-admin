@@ -27,11 +27,11 @@ export const quizKeys = {
  * Get paginated list of quizzes
  */
 export function useQuizzes(params?: QuizzesQueryParams) {
-  return useQuery({
+  return useQuery<QuizzesListResponse>({
     queryKey: quizKeys.list(params),
     queryFn: async () => {
       const response = await api.get<QuizzesListResponse>('/admin/quizzes', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useQuizzes(params?: QuizzesQueryParams) {
  * Get single quiz by ID
  */
 export function useQuiz(id: string) {
-  return useQuery({
+  return useQuery<QuizResponse>({
     queryKey: quizKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<QuizResponse>(`/admin/quizzes/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

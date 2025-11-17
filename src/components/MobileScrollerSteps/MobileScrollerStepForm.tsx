@@ -37,7 +37,7 @@ const MobileScrollerStepForm: React.FC<MobileScrollerStepFormProps> = ({
 
   useEffect(() => {
     if (isEdit && stepData) {
-      const data = stepData;
+      const data = stepData.data;
       setFormData({
         stepNumber: data.stepNumber,
         title: data.title,

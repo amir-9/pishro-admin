@@ -50,7 +50,7 @@ const BusinessConsultingForm: React.FC<BusinessConsultingFormProps> = ({
 
   useEffect(() => {
     if (isEdit && consultingData) {
-      const data = consultingData;
+      const data = consultingData.data;
       setFormData({
         title: data.title,
         description: data.description,

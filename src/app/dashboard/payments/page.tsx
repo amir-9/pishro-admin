@@ -11,7 +11,8 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 export default function PaymentsPage() {
   const [period, setPeriod] = useState<'monthly' | 'yearly'>('monthly');
-  const { data: paymentsData, isLoading, error } = useDashboardPayments({ period });
+  const { data, isLoading, error } = useDashboardPayments({ period });
+  const paymentsData = data?.data;
 
   const series = paymentsData
     ? [

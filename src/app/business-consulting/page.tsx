@@ -19,10 +19,10 @@ const BusinessConsultingPage = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
-    if (data?.items && data.items.length > 0) {
-      setConsultingId(data.items[0].id);
+    if (data?.data?.items && data.data.items.length > 0) {
+      setConsultingId(data.data.items[0].id);
       setIsEdit(true);
-    } else if (data?.items && data.items.length === 0) {
+    } else if (data?.data?.items && data.data.items.length === 0) {
       setIsEdit(false);
     }
   }, [data]);

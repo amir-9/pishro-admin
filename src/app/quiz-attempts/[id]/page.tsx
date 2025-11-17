@@ -9,7 +9,8 @@ import { useQuizAttempt } from "@/hooks/api/use-quiz-attempts";
 const QuizAttemptDetailPage = () => {
   const params = useParams();
   const id = params.id as string;
-  const { data: attempt, isLoading, error } = useQuizAttempt(id);
+  const { data, isLoading, error } = useQuizAttempt(id);
+  const attempt = data?.data;
 
   if (isLoading) {
     return (

@@ -27,11 +27,11 @@ export const commentKeys = {
  * Get paginated list of comments
  */
 export function useComments(params?: CommentsQueryParams) {
-  return useQuery({
+  return useQuery<CommentsListResponse>({
     queryKey: commentKeys.list(params),
     queryFn: async () => {
       const response = await api.get<CommentsListResponse>('/admin/comments', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useComments(params?: CommentsQueryParams) {
  * Get single comment by ID
  */
 export function useComment(id: string) {
-  return useQuery({
+  return useQuery<CommentResponse>({
     queryKey: commentKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<CommentResponse>(`/admin/comments/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

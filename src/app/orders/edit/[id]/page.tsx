@@ -12,7 +12,8 @@ const EditOrderPage = () => {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
-  const { data: order, isLoading, error } = useOrder(id);
+  const { data, isLoading, error } = useOrder(id);
+  const order = data?.data;
   const updateOrder = useUpdateOrder();
 
   const [formData, setFormData] = useState<{

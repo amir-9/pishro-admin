@@ -26,11 +26,11 @@ export const tagsKeys = {
  * Get paginated list of tags
  */
 export function useTags(params?: TagsQueryParams) {
-  return useQuery({
+  return useQuery<TagsListResponse>({
     queryKey: tagsKeys.list(params),
     queryFn: async () => {
       const response = await api.get<TagsListResponse>('/admin/tags', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -39,11 +39,11 @@ export function useTags(params?: TagsQueryParams) {
  * Get single tag by ID
  */
 export function useTag(id: string) {
-  return useQuery({
+  return useQuery<TagResponse>({
     queryKey: tagsKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<TagResponse>(`/admin/tags/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

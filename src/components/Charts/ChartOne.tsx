@@ -14,11 +14,11 @@ const ChartOne: React.FC = () => {
     ? [
         {
           name: "مبلغ دریافتی",
-          data: paymentsData.receivedAmount,
+          data: paymentsData.data.receivedAmount,
         },
         {
           name: "مبلغ معوق",
-          data: paymentsData.dueAmount,
+          data: paymentsData.data.dueAmount,
         },
       ]
     : [
@@ -109,7 +109,7 @@ const ChartOne: React.FC = () => {
     },
     xaxis: {
       type: "category",
-      categories: paymentsData?.months || [],
+      categories: paymentsData?.data?.months || [],
       axisBorder: {
         show: false,
       },
@@ -182,13 +182,13 @@ const ChartOne: React.FC = () => {
         <div className="border-stroke dark:border-dark-3 xsm:w-1/2 xsm:border-r">
           <p className="font-medium">مبلغ دریافتی</p>
           <h4 className="mt-1 text-xl font-bold text-dark dark:text-white">
-            {paymentsData?.totalReceived.toLocaleString('fa-IR')} تومان
+            {paymentsData?.data?.totalReceived.toLocaleString('fa-IR')} تومان
           </h4>
         </div>
         <div className="xsm:w-1/2">
           <p className="font-medium">مبلغ معوق</p>
           <h4 className="mt-1 text-xl font-bold text-dark dark:text-white">
-            {paymentsData?.totalDue.toLocaleString('fa-IR')} تومان
+            {paymentsData?.data?.totalDue.toLocaleString('fa-IR')} تومان
           </h4>
         </div>
       </div>

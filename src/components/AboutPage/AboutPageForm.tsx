@@ -54,7 +54,7 @@ const AboutPageForm: React.FC<AboutPageFormProps> = ({
 
   useEffect(() => {
     if (isEdit && aboutPageData) {
-      const data = aboutPageData;
+      const data = aboutPageData.data;
       setFormData({
         heroTitle: data.heroTitle,
         heroSubtitle: data.heroSubtitle || null,

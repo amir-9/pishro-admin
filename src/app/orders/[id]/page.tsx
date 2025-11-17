@@ -9,7 +9,8 @@ import { useOrder } from "@/hooks/api/use-orders";
 const OrderDetailPage = () => {
   const params = useParams();
   const id = params.id as string;
-  const { data: order, isLoading, error } = useOrder(id);
+  const { data, isLoading, error } = useOrder(id);
+  const order = data?.data;
 
   if (isLoading) {
     return (

@@ -39,7 +39,7 @@ const ResumeItemForm: React.FC<ResumeItemFormProps> = ({
 
   useEffect(() => {
     if (isEdit && itemData) {
-      const item = itemData;
+      const item = itemData.data;
       setFormData({
         aboutPageId: item.aboutPageId,
         title: item.title,
@@ -50,11 +50,11 @@ const ResumeItemForm: React.FC<ResumeItemFormProps> = ({
         order: item.order,
         published: item.published,
       });
-    } else if (!isEdit && aboutPagesData?.items?.[0]?.id) {
+    } else if (!isEdit && aboutPagesData?.data?.items?.[0]?.id) {
       // Auto-select first about page for new items
       setFormData((prev) => ({
         ...prev,
-        aboutPageId: aboutPagesData.items[0].id,
+        aboutPageId: aboutPagesData.data.items[0].id,
       }));
     }
   }, [isEdit, itemData, aboutPagesData]);
@@ -116,7 +116,7 @@ const ResumeItemForm: React.FC<ResumeItemFormProps> = ({
             className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition placeholder:text-dark-6 focus:border-primary active:border-primary disabled:cursor-default dark:border-dark-3 dark:bg-dark-2 dark:text-white"
           >
             <option value="">انتخاب کنید</option>
-            {aboutPagesData?.items?.map((page: any) => (
+            {aboutPagesData?.data?.items?.map((page: any) => (
               <option key={page.id} value={page.id}>
                 {page.heroTitle || page.id}
               </option>

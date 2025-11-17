@@ -9,7 +9,8 @@ import { useComment } from "@/hooks/api/use-comments";
 const CommentDetailPage = () => {
   const params = useParams();
   const id = params.id as string;
-  const { data: comment, isLoading, error } = useComment(id);
+  const { data, isLoading, error } = useComment(id);
+  const comment = data?.data;
 
   if (isLoading) {
     return (

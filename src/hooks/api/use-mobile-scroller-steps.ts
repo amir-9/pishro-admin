@@ -27,11 +27,11 @@ export const mobileScrollerStepKeys = {
  * Get paginated list of mobile scroller steps
  */
 export function useMobileScrollerSteps(params?: MobileScrollerStepQueryParams) {
-  return useQuery({
+  return useQuery<MobileScrollerStepListResponse>({
     queryKey: mobileScrollerStepKeys.list(params),
     queryFn: async () => {
       const response = await api.get<MobileScrollerStepListResponse>('/admin/mobile-scroller-steps', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useMobileScrollerSteps(params?: MobileScrollerStepQueryParams) {
  * Get single mobile scroller step by ID
  */
 export function useMobileScrollerStep(id: string) {
-  return useQuery({
+  return useQuery<MobileScrollerStepResponse>({
     queryKey: mobileScrollerStepKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<MobileScrollerStepResponse>(`/admin/mobile-scroller-steps/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

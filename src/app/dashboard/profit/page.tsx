@@ -11,7 +11,8 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 export default function ProfitPage() {
   const [period, setPeriod] = useState<'this_week' | 'last_week'>('this_week');
-  const { data: profitData, isLoading, error } = useDashboardProfit({ period });
+  const { data, isLoading, error } = useDashboardProfit({ period });
+  const profitData = data?.data;
 
   const series = profitData
     ? [

@@ -13,11 +13,11 @@ const ChartTwo: React.FC = () => {
     ? [
         {
           name: "فروش",
-          data: profitData.sales,
+          data: profitData.data.sales,
         },
         {
           name: "درآمد",
-          data: profitData.revenue,
+          data: profitData.data.revenue,
         },
       ]
     : [
@@ -82,7 +82,7 @@ const ChartTwo: React.FC = () => {
     },
 
     xaxis: {
-      categories: profitData?.days || [],
+      categories: profitData?.data?.days || [],
     },
     legend: {
       position: "top",

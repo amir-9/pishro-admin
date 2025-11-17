@@ -27,11 +27,11 @@ export const newsCommentKeys = {
  * Get paginated list of news comments
  */
 export function useNewsComments(params?: NewsCommentsQueryParams) {
-  return useQuery({
+  return useQuery<NewsCommentsListResponse>({
     queryKey: newsCommentKeys.list(params),
     queryFn: async () => {
       const response = await api.get<NewsCommentsListResponse>('/admin/news-comments', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useNewsComments(params?: NewsCommentsQueryParams) {
  * Get single news comment by ID
  */
 export function useNewsComment(id: string) {
-  return useQuery({
+  return useQuery<NewsCommentResponse>({
     queryKey: newsCommentKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<NewsCommentResponse>(`/admin/news-comments/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

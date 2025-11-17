@@ -25,11 +25,11 @@ export const transactionKeys = {
  * Get paginated list of transactions
  */
 export function useTransactions(params?: TransactionsQueryParams) {
-  return useQuery({
+  return useQuery<TransactionsListResponse>({
     queryKey: transactionKeys.list(params),
     queryFn: async () => {
       const response = await api.get<TransactionsListResponse>('/admin/transactions', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -38,11 +38,11 @@ export function useTransactions(params?: TransactionsQueryParams) {
  * Get single transaction by ID
  */
 export function useTransaction(id: string) {
-  return useQuery({
+  return useQuery<TransactionResponse>({
     queryKey: transactionKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<TransactionResponse>(`/admin/transactions/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

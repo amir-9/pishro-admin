@@ -27,11 +27,11 @@ export const userKeys = {
  * Get paginated list of users
  */
 export function useUsers(params?: UsersQueryParams) {
-  return useQuery({
+  return useQuery<UsersListResponse>({
     queryKey: userKeys.list(params),
     queryFn: async () => {
       const response = await api.get<UsersListResponse>('/admin/users', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useUsers(params?: UsersQueryParams) {
  * Get single user by ID
  */
 export function useUser(id: string) {
-  return useQuery({
+  return useQuery<UserResponse>({
     queryKey: userKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<UserResponse>(`/admin/users/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

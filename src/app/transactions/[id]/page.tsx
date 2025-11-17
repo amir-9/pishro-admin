@@ -9,7 +9,8 @@ import { useTransaction } from "@/hooks/api/use-transactions";
 const TransactionDetailPage = () => {
   const params = useParams();
   const id = params.id as string;
-  const { data: transaction, isLoading, error } = useTransaction(id);
+  const { data, isLoading, error } = useTransaction(id);
+  const transaction = data?.data;
 
   if (isLoading) {
     return (

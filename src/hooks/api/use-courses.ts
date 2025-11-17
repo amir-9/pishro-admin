@@ -27,11 +27,11 @@ export const courseKeys = {
  * Get paginated list of courses
  */
 export function useCourses(params?: CoursesQueryParams) {
-  return useQuery({
+  return useQuery<CoursesListResponse>({
     queryKey: courseKeys.list(params),
     queryFn: async () => {
       const response = await api.get<CoursesListResponse>('/admin/courses', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useCourses(params?: CoursesQueryParams) {
  * Get single course by ID
  */
 export function useCourse(id: string) {
-  return useQuery({
+  return useQuery<CourseResponse>({
     queryKey: courseKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<CourseResponse>(`/admin/courses/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

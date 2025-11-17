@@ -82,11 +82,11 @@ const CategoriesTable: React.FC = () => {
               </thead>
 
               <tbody>
-                {data?.items?.map(
+                {data?.data?.items?.map(
                   (category: CategoryWithRelations, index: number) => (
                     <tr key={category.id}>
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <div className="flex items-center gap-3">
                           {category.icon && (
@@ -113,7 +113,7 @@ const CategoriesTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <p className="text-dark dark:text-white">
                           {category._count?.courses || 0}
@@ -121,7 +121,7 @@ const CategoriesTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <p className="text-dark dark:text-white">
                           {category._count?.news || 0}
@@ -129,7 +129,7 @@ const CategoriesTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <span
                           className={`inline-flex rounded-full px-3 py-1 text-body-sm font-medium ${category.published ? "bg-[#219653]/[0.08] text-[#219653]" : "bg-[#D34053]/[0.08] text-[#D34053]"}`}
@@ -139,7 +139,7 @@ const CategoriesTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <div className="flex items-center gap-3">
                           <Link
@@ -187,7 +187,7 @@ const CategoriesTable: React.FC = () => {
             {data && (
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-body text-body-sm">
-                  نمایش {data.items.length} از {data.pagination.total} دسته‌بندی
+                  نمایش {data.data.items.length} از {data.data.pagination.total} دسته‌بندی
                 </p>
 
                 <div className="flex gap-2">
@@ -200,12 +200,12 @@ const CategoriesTable: React.FC = () => {
                   </button>
 
                   <span className="px-3 py-1">
-                    صفحه {page} از {data.pagination.totalPages}
+                    صفحه {page} از {data.data.pagination.totalPages}
                   </span>
 
                   <button
                     onClick={() => setPage((p) => p + 1)}
-                    disabled={!data.pagination.hasNextPage}
+                    disabled={!data.data.pagination.hasNextPage}
                     className="rounded bg-gray px-3 py-1 text-body-sm disabled:opacity-50"
                   >
                     بعدی

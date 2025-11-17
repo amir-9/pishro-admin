@@ -29,14 +29,14 @@ export const skyRoomClassKeys = {
  * Fetch paginated list of SkyRoom classes
  */
 export function useSkyRoomClasses(params?: SkyRoomClassesQueryParams) {
-  return useQuery({
+  return useQuery<SkyRoomClassesListResponse>({
     queryKey: skyRoomClassKeys.list(params),
     queryFn: async () => {
       const response = await api.get<SkyRoomClassesListResponse>(
         "/admin/skyroom-classes",
         { params }
       );
-      return response.data;
+      return response;
     },
   });
 }
@@ -45,13 +45,13 @@ export function useSkyRoomClasses(params?: SkyRoomClassesQueryParams) {
  * Fetch a single SkyRoom class by ID
  */
 export function useSkyRoomClass(id: string) {
-  return useQuery({
+  return useQuery<SkyRoomClassResponse>({
     queryKey: skyRoomClassKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<SkyRoomClassResponse>(
         `/admin/skyroom-classes/${id}`
       );
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

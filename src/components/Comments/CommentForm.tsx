@@ -45,7 +45,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
 
   useEffect(() => {
     if (isEdit && commentData) {
-      const comment = commentData;
+      const comment = commentData.data;
       setFormData({
         text: comment.text,
         rating: comment.rating || null,
@@ -205,7 +205,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
               className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
             >
               <option value="">انتخاب کنید...</option>
-              {coursesData?.items?.map((course: any) => (
+              {coursesData?.data?.items?.map((course: any) => (
                 <option key={course.id} value={course.id}>
                   {course.subject}
                 </option>
@@ -224,7 +224,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
               className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
             >
               <option value="">انتخاب کنید...</option>
-              {categoriesData?.items?.map((cat: any) => (
+              {categoriesData?.data?.items?.map((cat: any) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.title}
                 </option>

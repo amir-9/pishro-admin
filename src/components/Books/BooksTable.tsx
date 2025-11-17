@@ -89,11 +89,11 @@ const BooksTable: React.FC = () => {
               </thead>
 
               <tbody>
-                {data?.items?.map(
+                {data?.data?.items?.map(
                   (book: DigitalBookWithRelations, index: number) => (
                     <tr key={book.id}>
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <div className="flex items-center gap-3">
                           {book.cover && (
@@ -114,7 +114,7 @@ const BooksTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <span className="text-dark dark:text-white">
                           {book.author}
@@ -122,7 +122,7 @@ const BooksTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <span className="text-dark dark:text-white">
                           {book.category}
@@ -130,7 +130,7 @@ const BooksTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <span className="text-dark dark:text-white">
                           {book.year}
@@ -138,7 +138,7 @@ const BooksTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <span className="text-dark dark:text-white">
                           {book.views}
@@ -146,7 +146,7 @@ const BooksTable: React.FC = () => {
                       </td>
 
                       <td
-                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.items.length - 1 ? "border-b-0" : "border-b"}`}
+                        className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === data.data.items.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <div className="flex gap-2">
                           <Link
@@ -169,28 +169,28 @@ const BooksTable: React.FC = () => {
               </tbody>
             </table>
 
-            {data && data.pagination && (
+            {data?.data?.pagination && (
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-sm text-dark dark:text-white">
-                  نمایش {data.items.length} از {data.pagination.total} کتاب
+                  نمایش {data.data.items.length} از {data.data.pagination.total} کتاب
                 </p>
 
                 <div className="flex gap-2">
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
-                    disabled={!data.pagination.hasPrevPage}
+                    disabled={!data.data.pagination.hasPrevPage}
                     className="rounded border border-stroke px-3 py-1.5 text-sm font-medium text-dark hover:bg-gray disabled:cursor-not-allowed disabled:opacity-50 dark:border-dark-3 dark:text-white"
                   >
                     قبلی
                   </button>
 
                   <span className="flex items-center px-3 text-sm text-dark dark:text-white">
-                    صفحه {data.pagination.page} از {data.pagination.totalPages}
+                    صفحه {data.data.pagination.page} از {data.data.pagination.totalPages}
                   </span>
 
                   <button
                     onClick={() => setPage((p) => p + 1)}
-                    disabled={!data.pagination.hasNextPage}
+                    disabled={!data.data.pagination.hasNextPage}
                     className="rounded border border-stroke px-3 py-1.5 text-sm font-medium text-dark hover:bg-gray disabled:cursor-not-allowed disabled:opacity-50 dark:border-dark-3 dark:text-white"
                   >
                     بعدی

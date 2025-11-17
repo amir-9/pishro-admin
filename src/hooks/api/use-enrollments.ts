@@ -27,11 +27,11 @@ export const enrollmentKeys = {
  * Get paginated list of enrollments
  */
 export function useEnrollments(params?: EnrollmentsQueryParams) {
-  return useQuery({
+  return useQuery<EnrollmentsListResponse>({
     queryKey: enrollmentKeys.list(params),
     queryFn: async () => {
       const response = await api.get<EnrollmentsListResponse>('/admin/enrollments', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useEnrollments(params?: EnrollmentsQueryParams) {
  * Get single enrollment by ID
  */
 export function useEnrollment(id: string) {
-  return useQuery({
+  return useQuery<EnrollmentResponse>({
     queryKey: enrollmentKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<EnrollmentResponse>(`/admin/enrollments/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

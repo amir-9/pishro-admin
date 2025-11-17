@@ -35,7 +35,7 @@ const FAQForm: React.FC<FAQFormProps> = ({ faqId, isEdit = false }) => {
 
   useEffect(() => {
     if (isEdit && faqData) {
-      const faq = faqData;
+      const faq = faqData.data;
       setFormData({
         question: faq.question,
         answer: faq.answer,
@@ -134,7 +134,7 @@ const FAQForm: React.FC<FAQFormProps> = ({ faqId, isEdit = false }) => {
               className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
             >
               <option value="">انتخاب کنید...</option>
-              {categoriesData?.items?.map((cat: any) => (
+              {categoriesData?.data?.items?.map((cat: any) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.title}
                 </option>

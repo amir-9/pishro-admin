@@ -35,7 +35,7 @@ const UserForm: React.FC<UserFormProps> = ({ userId, isEdit = false }) => {
 
   useEffect(() => {
     if (isEdit && userData) {
-      const user = userData;
+      const user = userData.data;
       setFormData({
         phone: user.phone,
         password: "", // We don't populate password for security

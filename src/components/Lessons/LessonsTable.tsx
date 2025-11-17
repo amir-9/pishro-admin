@@ -79,7 +79,7 @@ const LessonsTable: React.FC = () => {
               className="rounded border border-stroke bg-transparent px-3 py-1.5 outline-none focus:border-primary dark:border-dark-3"
             >
               <option value="">همه دوره‌ها</option>
-              {coursesData?.items?.map((course: any) => (
+              {coursesData?.data?.items?.map((course: any) => (
                 <option key={course.id} value={course.id}>
                   {course.subject}
                 </option>
@@ -139,12 +139,12 @@ const LessonsTable: React.FC = () => {
               </thead>
 
               <tbody>
-                {data?.items?.map(
+                {data?.data?.items?.map(
                   (lesson: LessonWithRelations, index: number) => (
                     <tr key={lesson.id}>
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                          index === data.items.length - 1
+                          index === data.data.items.length - 1
                             ? "border-b-0"
                             : "border-b"
                         }`}
@@ -177,7 +177,7 @@ const LessonsTable: React.FC = () => {
 
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                          index === data.items.length - 1
+                          index === data.data.items.length - 1
                             ? "border-b-0"
                             : "border-b"
                         }`}
@@ -189,7 +189,7 @@ const LessonsTable: React.FC = () => {
 
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                          index === data.items.length - 1
+                          index === data.data.items.length - 1
                             ? "border-b-0"
                             : "border-b"
                         }`}
@@ -201,7 +201,7 @@ const LessonsTable: React.FC = () => {
 
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                          index === data.items.length - 1
+                          index === data.data.items.length - 1
                             ? "border-b-0"
                             : "border-b"
                         }`}
@@ -213,7 +213,7 @@ const LessonsTable: React.FC = () => {
 
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                          index === data.items.length - 1
+                          index === data.data.items.length - 1
                             ? "border-b-0"
                             : "border-b"
                         }`}
@@ -231,7 +231,7 @@ const LessonsTable: React.FC = () => {
 
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                          index === data.items.length - 1
+                          index === data.data.items.length - 1
                             ? "border-b-0"
                             : "border-b"
                         }`}
@@ -243,7 +243,7 @@ const LessonsTable: React.FC = () => {
 
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                          index === data.items.length - 1
+                          index === data.data.items.length - 1
                             ? "border-b-0"
                             : "border-b"
                         }`}
@@ -339,7 +339,7 @@ const LessonsTable: React.FC = () => {
             {data && (
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-body text-body-sm">
-                  نمایش {data.items.length} از {data.pagination.total} درس
+                  نمایش {data.data.items.length} از {data.data.pagination.total} درس
                 </p>
 
                 <div className="flex gap-2">
@@ -352,12 +352,12 @@ const LessonsTable: React.FC = () => {
                   </button>
 
                   <span className="px-3 py-1">
-                    صفحه {page} از {data.pagination.totalPages}
+                    صفحه {page} از {data.data.pagination.totalPages}
                   </span>
 
                   <button
                     onClick={() => setPage((p) => p + 1)}
-                    disabled={!data.pagination.hasNextPage}
+                    disabled={!data.data.pagination.hasNextPage}
                     className="rounded bg-gray px-3 py-1 text-body-sm disabled:opacity-50"
                   >
                     بعدی

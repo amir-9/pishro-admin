@@ -26,11 +26,11 @@ export const booksKeys = {
  * Get paginated list of digital books
  */
 export function useBooks(params?: BooksQueryParams) {
-  return useQuery({
+  return useQuery<BooksListResponse>({
     queryKey: booksKeys.list(params),
     queryFn: async () => {
       const response = await api.get<BooksListResponse>('/admin/books', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -39,11 +39,11 @@ export function useBooks(params?: BooksQueryParams) {
  * Get single book by ID
  */
 export function useBook(id: string) {
-  return useQuery({
+  return useQuery<BookResponse>({
     queryKey: booksKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<BookResponse>(`/admin/books/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });

@@ -27,11 +27,11 @@ export const lessonKeys = {
  * Get paginated list of lessons
  */
 export function useLessons(params?: LessonsQueryParams) {
-  return useQuery({
+  return useQuery<LessonsListResponse>({
     queryKey: lessonKeys.list(params),
     queryFn: async () => {
       const response = await api.get<LessonsListResponse>('/admin/lessons', { params });
-      return response.data;
+      return response;
     },
   });
 }
@@ -40,11 +40,11 @@ export function useLessons(params?: LessonsQueryParams) {
  * Get single lesson by ID
  */
 export function useLesson(id: string) {
-  return useQuery({
+  return useQuery<LessonResponse>({
     queryKey: lessonKeys.detail(id),
     queryFn: async () => {
       const response = await api.get<LessonResponse>(`/admin/lessons/${id}`);
-      return response.data;
+      return response;
     },
     enabled: !!id,
   });
