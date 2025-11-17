@@ -99,6 +99,7 @@ const NewsTable: React.FC = () => {
                                 src={news.coverImage}
                                 alt={news.title}
                                 className="h-full w-full object-cover"
+                                fill
                               />
                             </div>
                           )}

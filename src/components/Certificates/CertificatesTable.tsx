@@ -113,6 +113,7 @@ const CertificatesTable: React.FC = () => {
                             src={cert.image}
                             alt={cert.title}
                             className="h-12 w-12 rounded object-cover"
+                            fill
                           />
                         )}
                         <h5 className="font-medium text-dark dark:text-white">

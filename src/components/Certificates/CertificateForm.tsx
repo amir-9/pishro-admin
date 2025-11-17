@@ -197,6 +197,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = "none";
                 }}
+                fill
               />
             </div>
           </div>

@@ -122,6 +122,7 @@ const CoursesTable: React.FC = () => {
                                 src={course.img}
                                 alt={course.subject}
                                 className="h-full w-full object-cover"
+                                fill
                               />
                             </div>
                           )}
