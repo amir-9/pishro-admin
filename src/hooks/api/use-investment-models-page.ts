@@ -63,7 +63,7 @@ export function useCreateInvestmentModelsPage() {
   return useMutation({
     mutationFn: async (data: CreateInvestmentModelsPageRequest) => {
       const response = await api.post<InvestmentModelsPageResponse>('/admin/investment-models-page', data);
-      return response.data;
+      return response.data as unknown as InvestmentModelsPageResponse;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: investmentModelsPageKeys.lists() });
@@ -155,7 +155,7 @@ export function useCreateInvestmentModel() {
   return useMutation({
     mutationFn: async (data: CreateInvestmentModelRequest) => {
       const response = await api.post<InvestmentModelResponse>('/admin/investment-models', data);
-      return response.data;
+      return response.data as unknown as InvestmentModelResponse;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: investmentModelKeys.lists() });
