@@ -75,7 +75,22 @@ export function useUpdateMobileScrollerStep() {
 
   return useMutation({
     mutationFn: async ({ id, data }: { id: string; data: UpdateMobileScrollerStepRequest }) => {
+      // 🔍 DEBUG: Log exact data being sent
+      console.log("=== HOOK DEBUG: Sending PATCH request ===");
+      console.log("🆔 ID:", id);
+      console.log("📦 Data object:", data);
+      console.log("🔗 data.link:", data.link);
+      console.log("📤 Stringified data:", JSON.stringify(data, null, 2));
+      console.log("=====================================");
+
       const response = await api.patch<MobileScrollerStepResponse>(`/admin/mobile-scroller-steps/${id}`, data);
+
+      // 🔍 DEBUG: Log response
+      console.log("=== HOOK DEBUG: Received response ===");
+      console.log("📥 Response:", response);
+      console.log("🔗 response.data?.data?.link:", (response as any)?.data?.link);
+      console.log("=====================================");
+
       return response.data as unknown as MobileScrollerStepResponse;
     },
     onSuccess: (response: MobileScrollerStepResponse) => {
