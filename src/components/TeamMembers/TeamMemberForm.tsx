@@ -38,6 +38,8 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
     linkedinUrl: "",
     emailUrl: "",
     twitterUrl: "",
+    whatsappUrl: "",
+    telegramUrl: "",
     order: 0,
     published: true,
   });
@@ -58,6 +60,8 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
         linkedinUrl: member.linkedinUrl || "",
         emailUrl: member.emailUrl || "",
         twitterUrl: member.twitterUrl || "",
+        whatsappUrl: member.whatsappUrl || "",
+        telegramUrl: member.telegramUrl || "",
         order: member.order,
         published: member.published,
       });
@@ -311,6 +315,34 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
               value={formData.twitterUrl || ""}
               onChange={handleChange}
               placeholder="https://twitter.com/..."
+              className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition placeholder:text-dark-6 focus:border-primary active:border-primary disabled:cursor-default dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+            />
+          </div>
+
+          <div>
+            <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
+              واتساپ
+            </label>
+            <input
+              type="text"
+              name="whatsappUrl"
+              value={formData.whatsappUrl || ""}
+              onChange={handleChange}
+              placeholder="https://wa.me/..."
+              className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition placeholder:text-dark-6 focus:border-primary active:border-primary disabled:cursor-default dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+            />
+          </div>
+
+          <div>
+            <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
+              تلگرام
+            </label>
+            <input
+              type="text"
+              name="telegramUrl"
+              value={formData.telegramUrl || ""}
+              onChange={handleChange}
+              placeholder="https://t.me/..."
               className="w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition placeholder:text-dark-6 focus:border-primary active:border-primary disabled:cursor-default dark:border-dark-3 dark:bg-dark-2 dark:text-white"
             />
           </div>
