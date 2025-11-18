@@ -45,6 +45,7 @@ const InvestmentModelForm: React.FC<InvestmentModelFormProps> = ({
     contactDescription: null,
     contacts: [],
     order: nextOrder,
+    published: true,
   });
 
   // UI states for managing JSON and arrays
@@ -72,6 +73,7 @@ const InvestmentModelForm: React.FC<InvestmentModelFormProps> = ({
         contactDescription: data.contactDescription || null,
         contacts: data.contacts as any,
         order: data.order,
+        published: data.published,
       });
 
       // Set UI states
@@ -372,18 +374,38 @@ const InvestmentModelForm: React.FC<InvestmentModelFormProps> = ({
         </div>
       </div>
 
-      {/* Order */}
-      <div>
-        <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
-          ترتیب نمایش
-        </label>
-        <input
-          type="number"
-          name="order"
-          value={formData.order}
-          onChange={handleChange}
-          className="w-60 rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
-        />
+      {/* Order and Published */}
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div>
+          <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
+            ترتیب نمایش
+          </label>
+          <input
+            type="number"
+            name="order"
+            value={formData.order}
+            onChange={handleChange}
+            className="w-60 rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3 text-dark outline-none transition focus:border-primary dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+          />
+        </div>
+
+        <div>
+          <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
+            وضعیت انتشار
+          </label>
+          <label className="flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              name="published"
+              checked={formData.published}
+              onChange={handleChange}
+              className="rounded border-stroke"
+            />
+            <span className="text-body-sm font-medium text-dark dark:text-white">
+              منتشر شده
+            </span>
+          </label>
+        </div>
       </div>
 
       <div className="flex justify-end gap-3">
