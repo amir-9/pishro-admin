@@ -68,6 +68,10 @@ const NewsForm: React.FC<NewsFormProps> = ({ newsId, isEdit = false }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    console.log("=== FormData before submit ===");
+    console.log("coverImage:", formData.coverImage);
+    console.log("Full formData:", formData);
+
     try {
       if (isEdit && newsId) {
         await updateNews.mutateAsync({ id: newsId, data: formData });
@@ -251,7 +255,15 @@ const NewsForm: React.FC<NewsFormProps> = ({ newsId, isEdit = false }) => {
             label="تصویر کاور خبر"
             name="coverImage"
             value={formData.coverImage || ""}
-            onChange={(url) => setFormData((prev) => ({ ...prev, coverImage: url }))}
+            onChange={(url) => {
+              console.log("=== ImageUpload onChange called ===");
+              console.log("New URL:", url);
+              setFormData((prev) => {
+                const newData = { ...prev, coverImage: url };
+                console.log("Updated formData:", newData);
+                return newData;
+              });
+            }}
             category="NEWS"
             showPreview={true}
             previewWidth={300}

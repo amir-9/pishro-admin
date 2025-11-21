@@ -103,6 +103,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       clearInterval(progressInterval);
       setUploadProgress(100);
 
+      console.log("=== Image Upload Response ===");
+      console.log("Response:", response);
+      console.log("filePath:", response.data.filePath);
+      console.log("Calling onChange with:", response.data.filePath);
+
       if (response.data.filePath) {
         onChange(response.data.filePath);
         toast.success("تصویر با موفقیت آپلود شد");
